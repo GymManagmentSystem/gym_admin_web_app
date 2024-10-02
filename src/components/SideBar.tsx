@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/react'
+import {VStack } from '@chakra-ui/react'
 import SideBarLink from './SideBarLink'
 import dashBordLogo from '../assets/dashboard (1).png'
 import scheduleLogo from '../assets/schedule.png'
