@@ -10,17 +10,19 @@ const SideBarLink = ({ title, imageSrc }: SideBarLinkProps) => {
   const [isHoverd, setIsHovered] = useState(false);
   return (
     <HStack
-      style={{ justifyContent: "space-evenly", width: "262px", height: "50px" }}
+    justifyContent="space-evenly"
+    width="100%"
+    height={{md:"35px",lg:"50px"}}
       _hover={{ backgroundColor: "#F1B900", fontcolor: "#ffffff" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Box width="30%" style={{ display: "flex", justifyContent: "center" }}>
-        <Image src={imageSrc} color={isHoverd ? "#ffffff" : "#62615D"} />
+        <Image src={imageSrc} color={isHoverd ? "#ffffff" : "#62615D"} width={{md:"20px",lg:"25px"}} height={{md:"20px",lg:"25px"}} objectFit="cover" />
       </Box>
       <Box width="70%">
         <Text
-          style={{ fontSize: "1rem" }}
+          fontSize={{md:"0.8rem",lg:"1rem"}}
           color={isHoverd ? "#ffffff" : "#62615D"}
         >
           {title}
