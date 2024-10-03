@@ -12,6 +12,10 @@ interface TopHomeCardProps {
 }
 
 const TopHomeCard = ({children,title1,title2,count}:TopHomeCardProps) => {
+
+  const titleFontSize={md:"0.7rem",lg:"0.6rem",xl:"1rem"}
+  const headingFontSize={md:"1rem",lg:"1rem",xl:"1rem"}
+  
   return (
     <Card
       direction="row"
@@ -27,13 +31,13 @@ const TopHomeCard = ({children,title1,title2,count}:TopHomeCardProps) => {
             {children}
       </Box>
       <CardBody width="60%"> 
-        <Text fontSize={{md:"0.7rem",lg:"1rem"}} color="#000">
+        <Text fontSize={titleFontSize} color="#000">
             {title1}
         </Text>
-        <Text fontSize={{md:"0.7rem",lg:"1rem"}}  color="#000">
+        <Text fontSize={titleFontSize}  color="#000">
             {title2}
         </Text>
-        <Heading fontSize={{md:"0.7rem",lg:"1rem"}} color="#000">
+        <Heading fontSize={headingFontSize} color="#000">
             {count}
         </Heading>
       </CardBody>
