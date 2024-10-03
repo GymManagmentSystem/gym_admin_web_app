@@ -11,7 +11,7 @@ const Heading = () => {
     <>
     <HStack style={{justifyContent:'space-between',backgroundColor:'#000'}} p={5}>
         <Image src={logo}/>
-        <Box style={{display:'flex',justifyContent:'space-between',alignItems:'center'}} width={{md:'20%',lg:'15%'}}>
+        <Box style={{display:'flex',justifyContent:'space-between',alignItems:'center'}} width={{md:'20%',lg:'15%',xl:'15%'}}>
             <VStack>
                 <Text>Mr.Fernando</Text>
                 <Text>Admin</Text>
