@@ -1,12 +1,14 @@
 import { Box, HStack, Image, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface SideBarLinkProps {
   title: string;
   imageSrc: string;
+  path:string
 }
 
-const SideBarLink = ({ title, imageSrc }: SideBarLinkProps) => {
+const SideBarLink = ({ title, imageSrc,path}: SideBarLinkProps) => {
   const [isHoverd, setIsHovered] = useState(false);
   return (
     <HStack
@@ -21,12 +23,12 @@ const SideBarLink = ({ title, imageSrc }: SideBarLinkProps) => {
         <Image src={imageSrc} color={isHoverd ? "#ffffff" : "#62615D"} width={{md:"20px",lg:"25px",xl:"25px"}} height={{md:"20px",lg:"25px",xl:"25px"}} objectFit="cover" />
       </Box>
       <Box width="70%">
-        <Text
+        <Link to={path}><Text
           fontSize={{md:"0.8rem",lg:"1rem",xl:"1rem"}}
           color={isHoverd ? "#ffffff" : "#62615D"}
         >
           {title}
-        </Text>
+        </Text></Link>
       </Box>
     </HStack>
   );
