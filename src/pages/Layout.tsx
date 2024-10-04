@@ -35,12 +35,13 @@ const Layout = () => {
         >
           <SideBar />
         </GridItem>
-        <GridItem area="main" style={{ backgroundColor: "#fff" }} overflow={{md:"auto",lg:"hidden",xl:"hidden"}} height="100%">
+        <GridItem area="main" style={{ backgroundColor: "#fff" }} overflow={{md:"auto",lg:"hidden",xl:"hidden"}} height="100%" padding={2}>
            <Outlet/>
         </GridItem>
         <GridItem area="footer" style={{ backgroundColor: "#F1B900" }}>
         </GridItem>
       </Grid>
+      
     </>
   )
 }
