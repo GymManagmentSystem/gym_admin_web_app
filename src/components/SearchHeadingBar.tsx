@@ -8,15 +8,17 @@ import {
 } from "@chakra-ui/react";
 import { CiSearch } from "react-icons/ci";
 
-interface SearchHeadingBarProps{
-    buttonPressed:()=>void
+interface SearchHeadingBarProps {
+  buttonPressed: () => void;
 }
 
-const SearchHeadingBar = ({buttonPressed}:SearchHeadingBarProps) => {
+const SearchHeadingBar = ({ buttonPressed }: SearchHeadingBarProps) => {
   const headingWidth = { md: "20%", lg: "20%", xl: "10%" };
-  const headingFontSize = { md: "1.2rem", lg: "1.2rem" };
+  const headingFontSize = { md: "1rem", lg: "1.2rem" };
   const inputWidth = { md: "50%", lg: "50%", xl: "70%" };
   const buttonWidth = { md: "20%", lg: "30%", xl: "10%" };
+  const buttonSize = { md: "sm", lg: "md" };
+  const inputSize = { md: "sm", lg: "md" };
   return (
     <HStack
       backgroundColor="#fff"
@@ -34,7 +36,7 @@ const SearchHeadingBar = ({buttonPressed}:SearchHeadingBarProps) => {
       >
         All Members
       </Heading>
-      <InputGroup width={inputWidth}>
+      <InputGroup width={inputWidth} size={inputSize}>
         <InputLeftElement pointerEvents="none">
           <CiSearch color="#E6E6E5" />
         </InputLeftElement>
@@ -51,6 +53,8 @@ const SearchHeadingBar = ({buttonPressed}:SearchHeadingBarProps) => {
         variant="outline"
         width={buttonWidth}
         onClick={buttonPressed}
+        _hover={{ backgroundColor: "#F1B900", textColor: "#fff" }}
+        size={buttonSize}
       >
         Add Member
       </Button>
