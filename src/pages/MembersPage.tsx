@@ -7,14 +7,119 @@ const MembersPage = () => {
     console.log("button pressed!");
   };
 
-  const viewButtonPressed=()=>{
-    console.log("view button pressed!")
-  }
+  const viewButtonPressed = () => {
+    console.log("view button pressed!");
+  };
+
+  const data = [
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+    {
+      id: 1011,
+      name: "Kasun Perera",
+      expDate: "2025-01-03",
+      phone: "0712334489",
+      payment: "Yes",
+      Gender: "Male",
+    },
+  ];
+
   return (
     <>
       <Box overflow="auto" width="100%" height="100%">
         <SearchHeadingBar buttonPressed={buttonPress} />
-        <TableComponent thArray={['MemberId','Name','Membership Expiry','Phone','Payment','Gender','Action']} onPressViewButton={viewButtonPressed}/>
+        <TableComponent
+          thArray={[
+            "MemberId",
+            "Name",
+            "Membership Expiry",
+            "Phone",
+            "Payment",
+            "Gender",
+            "Action",
+          ]}
+          onPressViewButton={viewButtonPressed}
+          personArray={data}
+          arrayType="Member"
+        />
       </Box>
     </>
   );

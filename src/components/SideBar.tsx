@@ -19,7 +19,7 @@ const SideBar = () => {
         <SideBarLink imageSrc={scheduleLogo} title='Schedule' path='/'/>
         <SideBarLink imageSrc={membersLogo} title='Members' path='/members'/>
         <SideBarLink imageSrc={exerciseLogo} title='Exercise' path='/'/>
-        <SideBarLink imageSrc={staffLogo} title='Staff' path='/'/>
+        <SideBarLink imageSrc={staffLogo} title='Staff' path='/staff'/>
         <SideBarLink imageSrc={announcementLogo} title='Annoncement' path='/'/>
         <SideBarLink imageSrc={pricingLogo} title='Pricing' path='/'/>
         <SideBarLink imageSrc={chatLogo} title='Chats' path='/'/>
