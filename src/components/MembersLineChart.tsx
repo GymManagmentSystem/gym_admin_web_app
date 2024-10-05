@@ -18,6 +18,11 @@ interface MembersLineChartProps{
 }
 
 const MembersLineChart = ({title,month,value}:MembersLineChartProps) => {
+  const titleFontSize={sm:"1rem",md:"1.5rem",lg:"1.5rem",xl:"1.5rem"}
+  const valueFontSize={sm:"1.1rem",md:"1.5rem",lg:"1.5rem",xl:"1.5rem"}
+  const monthFontSize={sm:"1rem",md:"1.5rem",lg:"1.5rem",xl:"1.5rem"}
+  const cardHeight={ sm:"95%",md: "95%", lg: "60%" }
+  const cardWidth={ sm:"100%",md: "100%", lg: "95%" }
   const data = [
     {
       name: "Page A",
@@ -58,8 +63,8 @@ const MembersLineChart = ({title,month,value}:MembersLineChartProps) => {
   return (
     <Card
       backgroundColor="#fff"
-      width={{ md: "100%", lg: "95%" }}
-      height={{ md: "95%", lg: "60%" }}
+      width={cardWidth}
+      height={cardHeight}
       variant="elevated"
       marginTop={6}
       padding={3}
@@ -69,16 +74,16 @@ const MembersLineChart = ({title,month,value}:MembersLineChartProps) => {
         <VStack alignItems="flex-start">
           <Heading
             color="#F1B900"
-            fontSize="1.5rem"
+            fontSize={titleFontSize}
             fontWeight="semibold"
           >
             {title}
           </Heading>
-          <Heading color="#000" fontSize="1.5rem">
+          <Heading color="#000" fontSize={valueFontSize}>
             {value}
           </Heading>
         </VStack>
-        <Heading color="#000" fontSize="1rem" fontWeight="semibold">
+        <Heading color="#000" fontSize={monthFontSize} fontWeight="semibold">
           {month}
         </Heading>
       </HStack>

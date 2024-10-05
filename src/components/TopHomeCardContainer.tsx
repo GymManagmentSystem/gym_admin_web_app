@@ -7,10 +7,10 @@ import { MdPerson } from "react-icons/md";
 
 const TopHomeCardContainer = () => {
 
-  const iconSize={ md: "30px", lg: "30px",xl:"35px" }
+  const iconSize={sm:"20px",md: "30px", lg: "30px",xl:"35px" }
   return (
     <>
-      <SimpleGrid columns={{ md: 2, lg: 4,xl:4 }} gap={5} padding={2}>
+      <SimpleGrid columns={{sm:1, md: 2, lg: 4,xl:4 }} gap={5} padding={2}>
         <TopHomeCard title1="Current" title2="Members" count="40">
           <Box
             as={IoIosPeople}

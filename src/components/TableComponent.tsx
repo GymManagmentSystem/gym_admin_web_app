@@ -20,31 +20,30 @@ interface Person{
 
 interface TableComponent {
   thArray: string[];
-  onPressViewButton:()=>void;
+  onPressViewButton:(id:number)=>void;
   personArray:Person[]
   arrayType:"Member"|"Staff"
 }
 
 const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: TableComponent) => {
   const tableResponsiveSize = { md: "sm", lg: "sm", xl: "md" };
-  const butonResponsiveSize = { md: "xs", lg: "sm", xl: "md" };
+  const butonResponsiveSize = {md: "xs", lg: "sm", xl: "md" };
   
   return (
     <TableContainer mt={10} mr={2}>
       <Table size={tableResponsiveSize}>
         <Thead
           backgroundColor="#FFECB0"
-          style={{ position: "sticky", top: "0", zIndex: 1000 }}
         >
           <Tr borderBottomColor="#F1B900">
             {thArray.map((thName, index) => (
-              <Th key={index} color="#000">
+              <Th key={index} color="#000" fontSize={{sm:"0.5rem",md:"initial"}}>
                 {thName}
               </Th>
             ))}
           </Tr>
         </Thead>
-        <Tbody color="#000" borderBottomColor="#F1B900">
+        <Tbody color="#000" borderBottomColor="#F1B900" fontSize={{sm:"0.5rem",md:"initial"}}>
           {personArray.map((person) => (
             <Tr key={person.id}>
               <Td>{person.id}</Td>
@@ -58,7 +57,7 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
                   variant="solid"
                   textColor="#F1B900"
                   size={butonResponsiveSize}
-                  onClick={onPressViewButton}
+                  onClick={()=>onPressViewButton(person.id)}
                   _hover={{textColor:"#000"}}
                   
                 >
