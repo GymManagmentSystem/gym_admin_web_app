@@ -13,7 +13,7 @@ const Layout = () => {
         templateAreas={`"header header"
                           "sideBar main"
                           "footer footer"`}
-        templateColumns={{ md: "192px 1fr", lg: "285px 1fr",xl:"285px 1fr" }}
+        templateColumns={{sm:"150px 1fr",md: "192px 1fr", lg: "285px 1fr",xl:"285px 1fr" }}
         templateRows={"95px 1fr 39px"}
         w="100%"
         h="100vh"
@@ -30,12 +30,12 @@ const Layout = () => {
             borderRightColor: "#F1B900",
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "start",
           }}
         >
           <SideBar />
         </GridItem>
-        <GridItem area="main" style={{ backgroundColor: "#fff" }} overflow={{md:"auto",lg:"hidden",xl:"hidden"}} height="100%" padding={2}>
+        <GridItem area="main" style={{ backgroundColor: "#fff" }} overflow={{sm:"auto",md:"auto",lg:"hidden",xl:"hidden"}} height="100%" padding={2}>
            <Outlet/>
         </GridItem>
         <GridItem area="footer" style={{ backgroundColor: "#F1B900" }}>

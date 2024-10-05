@@ -13,7 +13,7 @@ interface TopHomeCardProps {
 
 const TopHomeCard = ({children,title1,title2,count}:TopHomeCardProps) => {
 
-  const titleFontSize={md:"0.7rem",lg:"0.6rem",xl:"1rem"}
+  const titleFontSize={sm:"0.6rem",md:"0.7rem",lg:"0.6rem",xl:"1rem"}
   const headingFontSize={md:"1rem",lg:"1rem",xl:"1rem"}
   
   return (

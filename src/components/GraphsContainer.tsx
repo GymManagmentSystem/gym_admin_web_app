@@ -9,7 +9,7 @@ const GraphsContainer = () => {
       <MembersLineChart title="New Members" value={20} month="August"/>
       <MembersLineChart title="Revenue" value={200000} month="August"/>
       </HStack> */}
-      <SimpleGrid width="100%" height="100%" columns={{md:1,lg:2}} spacing={2} marginLeft={2}>
+      <SimpleGrid width="100%" height="100%" columns={{sm:1,md:1,lg:2}} spacing={2} marginLeft={2}>
       <MembersLineChart title="New Members" value={20} month="August"/>
       <MembersLineChart title="Revenue" value={200000} month="August"/>
       </SimpleGrid>

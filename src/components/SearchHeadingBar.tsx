@@ -13,12 +13,12 @@ interface SearchHeadingBarProps {
 }
 
 const SearchHeadingBar = ({ buttonPressed }: SearchHeadingBarProps) => {
-  const headingWidth = { md: "20%", lg: "20%", xl: "10%" };
-  const headingFontSize = { md: "1rem", lg: "1.2rem" };
-  const inputWidth = { md: "50%", lg: "50%", xl: "70%" };
+  const headingWidth = {sm:"15%", md: "20%", lg: "20%", xl: "10%" };
+  const headingFontSize = { sm:"0.6rem",md: "1rem", lg: "1.2rem" };
+  const inputWidth = { sm:"65%",md: "50%", lg: "50%", xl: "70%" };
   const buttonWidth = { md: "20%", lg: "30%", xl: "10%" };
-  const buttonSize = { md: "sm", lg: "md" };
-  const inputSize = { md: "sm", lg: "md" };
+  const buttonSize = { sm:"xs",md: "sm", lg: "md" };
+  const inputSize = { sm:"xs",md: "sm", lg: "md" };
   return (
     <HStack
       backgroundColor="#fff"
