@@ -1,4 +1,4 @@
-import {Box, VStack } from '@chakra-ui/react'
+import {VStack } from '@chakra-ui/react'
 import SideBarLink from './SideBarLink'
 import dashBordLogo from '../assets/dashboard (1).png'
 import scheduleLogo from '../assets/schedule.png'
@@ -9,7 +9,7 @@ import announcementLogo from '../assets/announcement.png'
 import pricingLogo from '../assets/pricing.png'
 import chatLogo from '../assets/chat.png'
 import logOutLogo from '../assets/logout.png'
-import { Link } from 'react-router-dom'
+
 
 
 const SideBar = () => {
