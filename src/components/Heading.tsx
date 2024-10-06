@@ -2,9 +2,9 @@ import {Box,HStack, Image, Text, VStack } from "@chakra-ui/react"
 import logo from "../assets/MotionZone.png"
 import profileLogo from "../assets/profile.png"
 
-interface HeadingProps{
-    userName:string
-}
+// interface HeadingProps{
+//     userName:string
+// }
 
 const Heading = () => {
   return (
