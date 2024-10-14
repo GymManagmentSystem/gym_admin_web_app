@@ -44,25 +44,25 @@ const schema = z.object({
   address: z.string({ required_error: "adress is required" }),
 });
 
-export type FormData = z.infer<typeof schema>;
+export type MemberFormData = z.infer<typeof schema>;
 
 interface MemberEditableFormProps {
-  memberDetails: FormData;
+  memberDetails: MemberFormData;
 }
 
 const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
   const [isEditEnabled, setEditEnabled] = useState(false);
-  const buttonSizes={sm:"sm",md:"sm",lg:"md",xl:"lg"}
+  const buttonSizes = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<MemberFormData>({
     defaultValues: memberDetails,
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: MemberFormData) => {
     setEditEnabled(false);
     console.log(data);
   };
@@ -70,7 +70,12 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <SimpleGrid width="100%" mt={2} columns={{sm:1,md:2,lg:2,xl:2}} gap={2}>
+        <SimpleGrid
+          width="100%"
+          mt={2}
+          columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
+          gap={2}
+        >
           <TextInput
             textInputTitle="First Name"
             name="firstName"
@@ -87,7 +92,7 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             isEditEnabled={isEditEnabled}
             type="string"
           />
-        
+
           <TextInput
             textInputTitle="Contact Number"
             name="contactNumber"
@@ -104,8 +109,6 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             isEditEnabled={isEditEnabled}
             type="string"
           />
-
-
 
           <TextInput
             textInputTitle="Age"
@@ -124,7 +127,6 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             type="string"
           />
 
-
           <TextInput
             textInputTitle="Weight in (Kg)"
             name="weight"
@@ -141,8 +143,7 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             isEditEnabled={isEditEnabled}
             type="string"
           />
-         </SimpleGrid> 
-
+        </SimpleGrid>
 
         <HStack mt={5}>
           <Button

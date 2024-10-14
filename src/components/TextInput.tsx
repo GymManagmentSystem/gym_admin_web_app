@@ -4,33 +4,40 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import { FieldError,UseFormRegister } from "react-hook-form";
-import { FormData } from "./MemberEditableForm";
+import { FieldError, UseFormRegister,Path } from "react-hook-form";
+import { MemberFormData } from "./MemberEditableForm";
+import { StaffFormData } from "./StaffEditableForm";
 
-interface TextInputProps {
+
+interface TextInputProps<T extends MemberFormData | StaffFormData> {
   textInputTitle: string;
-  name: keyof FormData;
+  name: Path<T>;
   isEditEnabled: boolean;
-  register: UseFormRegister<FormData>;
+  register: UseFormRegister<T>
   errors?: FieldError;
   type: "number" | "string";
 }
 
-const TextInput = ({
+const TextInput = <T extends MemberFormData | StaffFormData>({
   textInputTitle,
   name,
   register,
   errors,
   isEditEnabled,
   type,
-}: TextInputProps) => {
+}: TextInputProps<T>) => {
   const isNumber = type === "number" ? true : false;
   return (
     <>
       <FormControl isInvalid={!!errors}>
-        <FormLabel color="#000" fontSize={{sm:"smaller",md:"md",lg:"lg",xl:"lg"}}>{textInputTitle}</FormLabel>
+        <FormLabel
+          color="#000"
+          fontSize={{ sm: "smaller", md: "md", lg: "lg", xl: "lg" }}
+        >
+          {textInputTitle}
+        </FormLabel>
         <Input
-        size={{sm:"xs",md:"sm",lg:"lg",xl:"lg"}}
+          size={{ sm: "xs", md: "sm", lg: "lg", xl: "lg" }}
           border="2px solid #E6E6E5"
           textColor="#000"
           focusBorderColor="#F1B900"

@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import MemberEditableForm from "../components/MemberEditableForm";
+import PaymentHistroyTable from "../components/PaymentHistroyTable";
+
 
 const MemberDetailsPage = () => {
   const { id } = useParams(); //getting id from the routing parameters
   const mainCardContainerWidth={sm:"100%",md:"90%",lg:"90%",xl:"90%"}
   const headerCardContainerWidth={sm:"100%",md:"90%",lg:"90%",xl:"90%"}
-  const headerCardContainerHeight={sm:"10%",md:"15%",lg:"13%",xl:"12%"}
+  const headerCardContainerHeight={sm:"70px",md:"70px",lg:"70px",xl:"70px"}
 
   const personData = {
     firstName: "Nethupama",
@@ -21,10 +23,43 @@ const MemberDetailsPage = () => {
     address:'Kaluthara,Colombo'
   };
 
+  const paymentDetails=[
+    {
+    planName:"Monthly Plan",
+    planDesc:"Activate for One Month",
+    validity:"T",
+    amount:3000,
+    paymentDate:"2024/10/14",
+    expDate:"2024/9/14",
+    validTime:"1"
+  },
+  {
+    planName:"Monthly Plan",
+    planDesc:"Activate for One Month",
+    validity:"F",
+    amount:3000,
+    paymentDate:"2024/8/14",
+    expDate:"2024/9/14",
+    validTime:"1"
+  },
+  {
+    planName:"Monthly Plan",
+    planDesc:"Activate for One Month",
+    validity:"F",
+    amount:3000,
+    paymentDate:"2024/7/14",
+    expDate:"2024/8/14",
+    validTime:"1"
+  }
+  ]
+  
+
   const [memberData,setMemerData]=useState(personData);
+  const [paymentData,setPaymentData]=useState(paymentDetails)
 
   useEffect(() => {
     setMemerData(personData)
+    setPaymentData(paymentDetails)
   }, []);
 
  
@@ -57,6 +92,7 @@ const MemberDetailsPage = () => {
               height={headerCardContainerHeight}
               width={headerCardContainerWidth}
               zIndex={1}
+              
             >
               <CardBody
                 display="flex"
@@ -86,9 +122,22 @@ const MemberDetailsPage = () => {
               variant="elevated"
             >
               <CardBody width="100%">
+                <Heading color="#000" size={{sm:"sm",md:"md"}} mt={4} mb={5}>Member Details</Heading>
                 <MemberEditableForm memberDetails={memberData}/>
               </CardBody>
             </Card>
+            <Card
+                height="auto"
+                width="80%"
+                backgroundColor="#fff"
+                variant="elevated"
+                mt={2}
+              >
+                <CardBody width="100%">
+                <Heading color="#000"  mt={2} mb={5} size={{sm:"sm",md:"md"}}>Payment Details</Heading>
+                  <PaymentHistroyTable paymentDetails={paymentData}/>
+                </CardBody>
+              </Card>
           </CardBody>
         </Card>
       </Box>
