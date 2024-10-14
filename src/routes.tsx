@@ -6,6 +6,7 @@ import StaffMembersPage from "./pages/StaffMembersPage";
 import MemberDetailsPage from "./pages/MemberDetailsPage";
 import StaffMemberDetails from "./pages/StaffMemberDetails";
 import SchedulePage from "./pages/SchedulePage";
+import CurrentSchedulePage from "./pages/CurrentSchedulePage";
 
 const routes=createBrowserRouter([
     {
@@ -17,7 +18,8 @@ const routes=createBrowserRouter([
             {path:'members/:id',element:<MemberDetailsPage/>},
             {path:'staff',element:<StaffMembersPage/>},
             {path:'staff/:id',element:<StaffMemberDetails/>},
-            {path:'schedule',element:<SchedulePage/>}
+            {path:'schedule',element:<SchedulePage/>},
+            {path:'schedule/:id',element:<CurrentSchedulePage/>}
         ]
     }
 ])
