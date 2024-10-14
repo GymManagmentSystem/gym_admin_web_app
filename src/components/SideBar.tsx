@@ -16,7 +16,7 @@ const SideBar = () => {
   return (
     <VStack width="100%" padding={2} style={{backgroundColor:'#fff'}}>
         <SideBarLink  imageSrc={dashBordLogo} title='Dashbord' path='/'/>
-        <SideBarLink imageSrc={scheduleLogo} title='Schedule' path='/'/>
+        <SideBarLink imageSrc={scheduleLogo} title='Schedule' path='/schedule'/>
         <SideBarLink imageSrc={membersLogo} title='Members' path='/members'/>
         <SideBarLink imageSrc={exerciseLogo} title='Exercise' path='/'/>
         <SideBarLink imageSrc={staffLogo} title='Staff' path='/staff'/>
