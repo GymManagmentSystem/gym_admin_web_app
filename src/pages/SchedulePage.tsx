@@ -31,7 +31,7 @@ const SchedulePage = () => {
       </InputGroup>
       <HStack mt={10}>
         <Button 
-        size={{xl:"lg"}}
+        size={{sm:"md",lg:"lg"}}
           variant="outline"
           color="#F1B900"
           borderColor="#F1B900"
@@ -42,7 +42,7 @@ const SchedulePage = () => {
         </Button>
 
         <Button 
-        size={{xl:"lg"}}
+        size={{sm:"md",lg:"lg"}}
           variant="outline"
           color="#F1B900"
           borderColor="#F1B900"

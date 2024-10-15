@@ -1,22 +1,13 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardBody,
-  Heading,
-  HStack,
-  VStack,
-} from "@chakra-ui/react";
-
+import { Box, Card, CardBody, Heading, HStack, VStack } from "@chakra-ui/react";
 import ScheduleExerciseTable from "../components/ScheduleExerciseTable";
-import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-const CurrentSchedulePage = () => {
-  const {id} = useParams();
-  console.log(id?.slice(1))
-  const navigate=useNavigate();
-  const currentSchedule = [
+const HistorySchedulePage = () => {
+    const {id}=useParams()
+    console.log(id);
+
+  const previousSchedule = [
     {
       scheduleNo: 1,
       scheduleType: "Legs",
@@ -90,10 +81,11 @@ const CurrentSchedulePage = () => {
       ],
     },
   ];
-  const [currentSchdeule, setCurrentSchedule] = useState(currentSchedule);
+
+  const [historySchedule,setHistorySchedule]=useState(previousSchedule)
+
   const responsiveCardWidth = { sm: "100%", md: "100%", lg: "100%" };
   const responsiveFontSize = { sm: "sm", md: "sm", lg: "md", xl: "md" };
-  const responsiveButtonSize = { sm: "md", md: "md", lg: "lg", xl: "lg" };
 
   return (
     <Box
@@ -125,27 +117,16 @@ const CurrentSchedulePage = () => {
           </HStack>
           <HStack justifyContent="flex-start" mt={5}>
             <Heading color="#000" size={responsiveFontSize} fontWeight="600">
-              Current Schedule
+              Schedule History
             </Heading>
           </HStack>
           <VStack alignItems="flex-start" mt={2} justifyContent="center">
-            <ScheduleExerciseTable scheduleArray={currentSchdeule} />
+            <ScheduleExerciseTable scheduleArray={historySchedule} />
           </VStack>
         </CardBody>
       </Card>
-      <Button
-        variant="outline"
-        color="#F1B900"
-        borderColor="#F1B900"
-        padding={5}
-        size={responsiveButtonSize}
-        _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
-        onClick={()=>navigate(`/schedule/historySchedule/:${id?.slice(1)}`)}
-      >
-        View Schedule History
-      </Button>
     </Box>
   );
 };
 
-export default CurrentSchedulePage;
+export default HistorySchedulePage;
