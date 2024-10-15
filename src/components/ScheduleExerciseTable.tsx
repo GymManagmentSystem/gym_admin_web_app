@@ -1,4 +1,5 @@
-import { Heading, HStack, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { HStack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
+
 
 
 
@@ -19,7 +20,7 @@ interface ScheduleExerciseTableProps{
 
 
 const ScheduleExerciseTable = ({scheduleArray: exerciseArray}:ScheduleExerciseTableProps) => {
-    const responsiveHeadingSize={sm:"xs",md:"sm",lg:"md",xl:"lg"}
+    const responsiveHeadingSize={sm:"xs",md:"sm",lg:"md",xl:"md"}
     const responsiveTableWidth={sm:"100%"}
     const responsiveTableSize={sm:"sm",md:"md",lg:"lg",xl:"lg"}
   return (
@@ -27,15 +28,15 @@ const ScheduleExerciseTable = ({scheduleArray: exerciseArray}:ScheduleExerciseTa
     {exerciseArray.map((exerciseDetail)=>(
         <TableContainer width={responsiveTableWidth} mt={5}>
         <HStack justifyContent="space-between" mt={2} mb={2}> 
-            <Heading color="#000" fontWeight="600" size={responsiveHeadingSize}>Schedule No : {exerciseDetail.scheduleNo}</Heading>
-            <Heading color="#000" fontWeight="600" size={responsiveHeadingSize}>Schedule Type : {exerciseDetail.scheduleType}</Heading>
+            <Text color="#000" fontWeight="600" size={responsiveHeadingSize}>Schedule No : {exerciseDetail.scheduleNo}</Text>
+            <Text color="#000" fontWeight="600" size={responsiveHeadingSize}>Schedule Type : {exerciseDetail.scheduleType}</Text>
         </HStack>
             <Table size={responsiveTableSize}>
             <Thead backgroundColor="#FFF8DF">
                 <Tr>
-                    <Th>Exercise</Th>
-                    <Th>Reps</Th>
-                    <Th>Sets</Th>
+                    <Th color="#000">Exercise</Th>
+                    <Th color="#000">Reps</Th>
+                    <Th color="#000">Sets</Th>
                 </Tr>
             </Thead>
             <Tbody color="#000">
