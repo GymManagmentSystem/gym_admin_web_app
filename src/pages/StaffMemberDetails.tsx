@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
 import StaffEditableForm from "../components/StaffEditableForm";
-import PaymentHistroyTable from "../components/PaymentHistroyTable";
+
 
 const StaffMemberDetails = () => {
   const { id } = useParams(); //getting id from the routing parameters

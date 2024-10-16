@@ -22,13 +22,13 @@ const PaymentHistroyTable = ({paymentDetails}:PyamentHistoryTableProps) => {
     <Table size={tableResponsiveSize}>
         <Thead backgroundColor="#FFECB0" >
             <Tr fontSize={{sm:"0.3rem",md:"3rem"}}>
-                <Th>Plan Id</Th>
-                <Th display={{base:"none",xl:"table-cell"}}>Plan Desc</Th>
-                <Th display={{base:"none",xl:"table-cell"}}>Valid Time</Th>
-                <Th display={{base:"none",xl:"table-cell"}}>Amount</Th>
-                <Th display={{base:"none",xl:"table-cell"}}>Expire Date</Th>
-                <Th>Payment Date</Th>
-                <Th>Validity</Th>
+                <Th color="#000">Plan Id</Th>
+                <Th color="#000" display={{base:"none",xl:"table-cell"}}>Plan Desc</Th>
+                <Th color="#000" display={{base:"none",xl:"table-cell"}}>Valid Time</Th>
+                <Th color="#000" display={{base:"none",xl:"table-cell"}}>Amount</Th>
+                <Th color="#000" display={{base:"none",xl:"table-cell"}}>Expire Date</Th>
+                <Th color="#000">Payment Date</Th>
+                <Th color="#000">Validity</Th>
             </Tr>
         </Thead>
         <Tbody color="#000" borderBottomColor="#F1B900">
