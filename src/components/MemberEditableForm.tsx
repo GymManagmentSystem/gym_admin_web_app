@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "./TextInput";
 
-const schema = z.object({
+export const memberEditableDataSchema = z.object({
   firstName: z
     .string({ required_error: "FirstName is required" })
     .min(3, { message: "First Name Should have more than 03 characters" })
@@ -31,23 +31,26 @@ const schema = z.object({
       required_error: "Date Join is required",
       invalid_type_error: "Date should be in yyyy-mm-dd format",
     })
-    .date(),
+    .date()
+    .optional(),
   age: z
     .number({ required_error: "age is required" })
     .int({ message: "age should be whole number" })
     .gte(10, { message: "age should be above 10" })
     .lte(70, { message: "age should below 70" })
     .nonnegative({ message: "age should not be negative" }),
+
   weight: z
     .number({ message: "weight is required" })
     .nonnegative({ message: "age should not be negative" }),
-  address: z.string({ required_error: "adress is required" }),
+
+  address: z.string().min(1,{message:"address is required"}),
 });
 
-export type MemberFormData = z.infer<typeof schema>;
+export type MemberEditableFormData = z.infer<typeof memberEditableDataSchema>;
 
 interface MemberEditableFormProps {
-  memberDetails: MemberFormData;
+  memberDetails: MemberEditableFormData;
 }
 
 const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
@@ -57,12 +60,12 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<MemberFormData>({
+  } = useForm<MemberEditableFormData>({
     defaultValues: memberDetails,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(memberEditableDataSchema),
   });
 
-  const onSubmit = (data: MemberFormData) => {
+  const onSubmit = (data: MemberEditableFormData) => {
     setEditEnabled(false);
     console.log(data);
   };
@@ -82,7 +85,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.firstName}
             isEditEnabled={isEditEnabled}
-            type="string"
+            inputType="string"
+            formType="editForm"
           />
           <TextInput
             textInputTitle="Last Name"
@@ -90,7 +94,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.lastName}
             isEditEnabled={isEditEnabled}
-            type="string"
+            inputType="string"
+            formType="editForm"
           />
 
           <TextInput
@@ -99,7 +104,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.contactNumber}
             isEditEnabled={isEditEnabled}
-            type="number"
+            inputType="number"
+            formType="editForm"
           />
           <TextInput
             textInputTitle="Email"
@@ -107,7 +113,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.email}
             isEditEnabled={isEditEnabled}
-            type="string"
+            inputType="string"
+            formType="editForm"
           />
 
           <TextInput
@@ -116,7 +123,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.age}
             isEditEnabled={isEditEnabled}
-            type="number"
+            inputType="number"
+            formType="editForm"
           />
           <TextInput
             textInputTitle="Date Join"
@@ -124,7 +132,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.dateJoin}
             isEditEnabled={isEditEnabled}
-            type="string"
+            inputType="string"
+            formType="editForm"
           />
 
           <TextInput
@@ -133,7 +142,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.weight}
             isEditEnabled={isEditEnabled}
-            type="number"
+            inputType="number"
+            formType="editForm"
           />
           <TextInput
             textInputTitle="Address"
@@ -141,7 +151,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.address}
             isEditEnabled={isEditEnabled}
-            type="string"
+            inputType="string"
+            formType="editForm"
           />
         </SimpleGrid>
 

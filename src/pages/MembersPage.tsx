@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const MembersPage = () => {
   const navigate=useNavigate();
   const buttonPress = () => {
-    console.log("button pressed!");
+    navigate('/members/addMember')
   };
 
   const viewButtonPressed = (id:number) => {

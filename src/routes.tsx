@@ -8,6 +8,8 @@ import StaffMemberDetails from "./pages/StaffMemberDetails";
 import SchedulePage from "./pages/SchedulePage";
 import CurrentSchedulePage from "./pages/CurrentSchedulePage";
 import HistorySchedulePage from "./pages/HistorySchedulePage";
+import AddMemberPage from "./pages/AddMemberPage";
+import AddPaymentPage from "./pages/AddPaymentPage";
 
 const routes=createBrowserRouter([
     {
@@ -17,11 +19,13 @@ const routes=createBrowserRouter([
             {index:true,element:<HomeDashbord/>},
             {path:'members',element:<MembersPage/>},
             {path:'members/:id',element:<MemberDetailsPage/>},
+            {path:'members/addMember',element:<AddMemberPage/>},
             {path:'staff',element:<StaffMembersPage/>},
             {path:'staff/:id',element:<StaffMemberDetails/>},
             {path:'schedule',element:<SchedulePage/>},
             {path:'schedule/:id',element:<CurrentSchedulePage/>},
-            {path:'/schedule/historySchedule/:id',element:<HistorySchedulePage/>}
+            {path:'schedule/historySchedule/:id',element:<HistorySchedulePage/>},
+            {path:'addPayment/:id',element:<AddPaymentPage/>}
         ]
     }
 ])
