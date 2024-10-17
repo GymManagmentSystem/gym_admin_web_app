@@ -13,7 +13,7 @@ interface Person{
   id:number,
   name:string,
   expDate?:string,
-  phone:string,
+  dateRegister:string,
   payment?:string,
   Gender:string
 }
@@ -49,7 +49,7 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
               <Td>{person.id}</Td>
               <Td>{person.name}</Td>
               {arrayType=="Member"?<Td>{person.expDate}</Td>:null}
-              <Td>{person.phone}</Td>
+              <Td>{person.dateRegister}</Td>
               {arrayType=="Member"?<Td>{person.payment}</Td>:null}
               <Td>{person.Gender}</Td>
               <Td>

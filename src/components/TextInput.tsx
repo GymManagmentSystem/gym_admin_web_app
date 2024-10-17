@@ -5,13 +5,13 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { FieldError, UseFormRegister, Path } from "react-hook-form";
-import { MemberEditableFormData } from "./MemberEditableForm";
+import { MemberFormData } from "./MemberEditableForm";
 import { StaffFormData } from "./StaffEditableForm";
-import { MemberAddFormData } from "../pages/AddMemberPage";
 import { PaymentFormData } from "../pages/AddPaymentPage";
 
+
 interface TextInputProps<
-  T extends MemberEditableFormData | StaffFormData | MemberAddFormData | PaymentFormData
+  T extends MemberFormData | StaffFormData | PaymentFormData
 > {
   textInputTitle: string;
   name: Path<T>;
@@ -26,7 +26,7 @@ interface TextInputProps<
 //in addForm we cannot controll disabel ness of the input feild
 
 const TextInput = <
-  T extends MemberEditableFormData | StaffFormData | MemberAddFormData |PaymentFormData
+  T extends MemberFormData | StaffFormData | PaymentFormData
 >({
   textInputTitle,
   name,

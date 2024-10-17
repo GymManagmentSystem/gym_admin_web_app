@@ -36,6 +36,7 @@ const StaffMemberDetails = () => {
     age: 24,
     address: "Kaluthara,Colombo",
     position: "Personal Trainer",
+    qualifications:"3 years as a senior trainer in Mount Lavania GYM."
   };
 
   const [memberData, setMemerData] = useState(personData);
