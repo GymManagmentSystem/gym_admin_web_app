@@ -129,7 +129,7 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.height}
             isEditEnabled={isEditEnabled}
-            inputType="string"
+            inputType="number"
             formType="editForm"
           />
 

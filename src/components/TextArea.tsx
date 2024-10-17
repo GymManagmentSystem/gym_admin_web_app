@@ -2,11 +2,11 @@ import { FormControl, FormErrorMessage, FormLabel, Textarea } from "@chakra-ui/r
 import { MemberFormData } from "./MemberEditableForm"
 import { StaffFormData } from "./StaffEditableForm"
 import { Path,UseFormRegister,FieldError } from "react-hook-form"
-
+import { ExerciseFormData } from "../pages/AddExercisePage";
 
 
 interface TextAreaProps<
-  T extends MemberFormData | StaffFormData
+  T extends MemberFormData | StaffFormData | ExerciseFormData
 > {
   textInputTitle: string;
   name: Path<T>;
@@ -17,7 +17,7 @@ interface TextAreaProps<
 }
 
 const TextArea = <
-T extends MemberFormData | StaffFormData 
+T extends MemberFormData | StaffFormData | ExerciseFormData
 >({
     textInputTitle,
     name,
