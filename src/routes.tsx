@@ -12,6 +12,7 @@ import AddMemberPage from "./pages/AddMemberPage";
 import AddPaymentPage from "./pages/AddPaymentPage";
 import AddStaffMemberPage from "./pages/AddStaffMemberPage";
 import ExercisePage from "./pages/ExercisePage";
+import AddExercisePage from "./pages/AddExercisePage";
 
 const routes=createBrowserRouter([
     {
@@ -29,7 +30,8 @@ const routes=createBrowserRouter([
             {path:'schedule/:id',element:<CurrentSchedulePage/>},
             {path:'schedule/historySchedule/:id',element:<HistorySchedulePage/>},
             {path:'addPayment/:id',element:<AddPaymentPage/>},
-            {path:'exercises',element:<ExercisePage/>}
+            {path:'exercises',element:<ExercisePage/>},
+            {path:'exercises/addExercise',element:<AddExercisePage/>}
         ]
     }
 ])

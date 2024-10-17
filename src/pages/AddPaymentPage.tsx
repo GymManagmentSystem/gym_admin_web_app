@@ -13,8 +13,9 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
-import { MemberAddFormData } from "./AddMemberPage";
+import { MemberFormData } from "../components/MemberEditableForm";
 import { zodResolver } from "@hookform/resolvers/zod";
+import SelectFeild from "../components/Select";
 
 const paymentSchema = z.object({
   memberName: z.string(),
@@ -30,10 +31,7 @@ const paymentSchema = z.object({
 export type PaymentFormData = z.infer<typeof paymentSchema>;
 
 const AddPaymentPage = () => {
-    
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
-  const responsiveSelectSize = { sm: "xs", md: "sm", lg: "lg", xl: "lg" };
-  const responsiveLabelSize = { sm: "smaller", md: "md", lg: "lg", xl: "lg" };
   const responsiveHeadingSize = { sm: "md", md: "lg", xl: "xl" };
 
   const packageTypes = [
@@ -45,7 +43,7 @@ const AddPaymentPage = () => {
     "One Year",
   ];
   const location = useLocation();
-  const memberData = location.state as MemberAddFormData;
+  const memberData = location.state as MemberFormData;
 
   const {
     register,
@@ -137,30 +135,21 @@ const AddPaymentPage = () => {
               formType="addForm"
             />
 
-            <FormControl>
-              <FormLabel color="#000" fontSize={responsiveLabelSize}>
-                PackageType
-              </FormLabel>
-              <Select
-                {...register("packageType")}
-                border="2px solid #E6E6E6"
-                color="#000"
-                _hover={{ borderColor: "#F1B900" }}
-                width="100%"
-                size={responsiveSelectSize}
-              >
-                {packageTypes.map((pkgType) => (
-                  <option
-                    key={pkgType}
-                    value={pkgType}
-                    color="#000"
-                    style={{ backgroundColor: "#fff" }}
-                  >
-                    {pkgType}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
+            <SelectFeild
+              selectArray={[
+                "Membership",
+                "Full Time",
+                "One Month",
+                "3 Months",
+                "6 Months",
+                "One Year",
+              ]}
+              textInputTitle="Package Type"
+              name="packageType"
+              register={register}
+              errors={errors.packageType}
+              formType="addForm"
+            />
           </SimpleGrid>
 
           <HStack justifyContent="flex-end" mt={5}>
