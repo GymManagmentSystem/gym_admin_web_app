@@ -108,7 +108,7 @@ const MembersPage = () => {
   return (
     <>
       <Box overflow="auto" width="100%" height="100%">
-        <SearchHeadingBar buttonPressed={buttonPress} />
+        <SearchHeadingBar buttonPressed={buttonPress} heading="All Members" buttonText="Add Member" />
         <TableComponent
           thArray={[
             "MemberId",

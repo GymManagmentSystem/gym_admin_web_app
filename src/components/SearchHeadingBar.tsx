@@ -5,20 +5,25 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  Text,
 } from "@chakra-ui/react";
 import { CiSearch } from "react-icons/ci";
 
 interface SearchHeadingBarProps {
+  heading: string;
+  buttonText: string;
   buttonPressed: () => void;
 }
 
-const SearchHeadingBar = ({ buttonPressed }: SearchHeadingBarProps) => {
-  const headingWidth = {sm:"15%", md: "20%", lg: "20%", xl: "10%" };
-  const headingFontSize = { sm:"0.6rem",md: "1rem", lg: "1.2rem" };
-  const inputWidth = { sm:"65%",md: "50%", lg: "50%", xl: "70%" };
-  const buttonWidth = { md: "20%", lg: "30%", xl: "10%" };
-  const buttonSize = { sm:"xs",md: "sm", lg: "md" };
-  const inputSize = { sm:"xs",md: "sm", lg: "md" };
+const SearchHeadingBar = ({
+  heading,
+  buttonText,
+  buttonPressed,
+}: SearchHeadingBarProps) => {
+  const headingFontSize = { sm: "small", md: "medium", lg: "large" };
+  const buttonTextSize = { sm: "x-small", xl: "small" };
+  const inputSize = { sm: "xs", md: "md" };
+
   return (
     <HStack
       backgroundColor="#fff"
@@ -28,15 +33,10 @@ const SearchHeadingBar = ({ buttonPressed }: SearchHeadingBarProps) => {
       ml={2}
       mt={2}
     >
-      <Heading
-        color="#000"
-        whiteSpace="nowrap"
-        width={headingWidth}
-        fontSize={headingFontSize}
-      >
-        All Members
+      <Heading color="#000" whiteSpace="nowrap" fontSize={headingFontSize}>
+        {heading}
       </Heading>
-      <InputGroup width={inputWidth} size={inputSize}>
+      <InputGroup>
         <InputLeftElement pointerEvents="none">
           <CiSearch color="#E6E6E5" />
         </InputLeftElement>
@@ -45,18 +45,17 @@ const SearchHeadingBar = ({ buttonPressed }: SearchHeadingBarProps) => {
           borderColor="#E6E6E5"
           _placeholder={{ textColor: "#E6E6E5", fontWeight: "600" }}
           focusBorderColor="#F1B900"
+          size={inputSize}
         />
       </InputGroup>
       <Button
         borderColor="#F1B900"
         textColor="#F1B900"
         variant="outline"
-        width={buttonWidth}
         onClick={buttonPressed}
         _hover={{ backgroundColor: "#F1B900", textColor: "#fff" }}
-        size={buttonSize}
       >
-        Add Member
+        <Text fontSize={buttonTextSize}>{buttonText}</Text>
       </Button>
     </HStack>
   );
