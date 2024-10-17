@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "./TextInput";
 
-export const memberEditableDataSchema = z.object({
+export const memberDataSchema = z.object({
   firstName: z
     .string({ required_error: "FirstName is required" })
     .min(3, { message: "First Name Should have more than 03 characters" })
@@ -26,13 +26,6 @@ export const memberEditableDataSchema = z.object({
     required_error: "ContactNumber is required",
     invalid_type_error: "ContactNumber must be a number",
   }),
-  dateJoin: z
-    .string({
-      required_error: "Date Join is required",
-      invalid_type_error: "Date should be in yyyy-mm-dd format",
-    })
-    .date()
-    .optional(),
   age: z
     .number({ required_error: "age is required" })
     .int({ message: "age should be whole number" })
@@ -44,13 +37,17 @@ export const memberEditableDataSchema = z.object({
     .number({ message: "weight is required" })
     .nonnegative({ message: "age should not be negative" }),
 
-  address: z.string().min(1,{message:"address is required"}),
+  address: z.string().min(1, { message: "address is required" }),
+  height: z
+    .number({ message: "height is required" })
+    .nonnegative({ message: "height should not be negative" })
+    .gt(0, { message: "height should be greater than 0" }),
 });
 
-export type MemberEditableFormData = z.infer<typeof memberEditableDataSchema>;
+export type MemberFormData = z.infer<typeof memberDataSchema>;
 
 interface MemberEditableFormProps {
-  memberDetails: MemberEditableFormData;
+  memberDetails: MemberFormData;
 }
 
 const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
@@ -60,12 +57,12 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<MemberEditableFormData>({
+  } = useForm<MemberFormData>({
     defaultValues: memberDetails,
-    resolver: zodResolver(memberEditableDataSchema),
+    resolver: zodResolver(memberDataSchema),
   });
 
-  const onSubmit = (data: MemberEditableFormData) => {
+  const onSubmit = (data: MemberFormData) => {
     setEditEnabled(false);
     console.log(data);
   };
@@ -127,10 +124,10 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             formType="editForm"
           />
           <TextInput
-            textInputTitle="Date Join"
-            name="dateJoin"
+            textInputTitle="Height"
+            name="height"
             register={register}
-            errors={errors.dateJoin}
+            errors={errors.height}
             isEditEnabled={isEditEnabled}
             inputType="string"
             formType="editForm"

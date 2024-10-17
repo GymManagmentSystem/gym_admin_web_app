@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import TextInput from "./TextInput";
+import TextArea from "./TextArea";
 
-const schema = z.object({
+export const staffDataSchema = z.object({
   firstName: z
     .string({ required_error: "FirstName is required" })
     .min(3, { message: "First Name Should have more than 03 characters" })
@@ -33,17 +34,22 @@ const schema = z.object({
     .gte(10, { message: "age should be above 10" })
     .lte(70, { message: "age should below 70" })
     .nonnegative({ message: "age should not be negative" }),
-  address: z.string({ required_error: "adress is required" }),
-  position: z.string({ required_error: "FirstName is required" }),
+  address: z
+    .string({ required_error: "adress is required" })
+    .min(1, { message: "Address is required" }),
+  position: z
+    .string({ required_error: "FirstName is required" })
+    .min(1, { message: "Position is required" }),
   RegisterDate: z
     .string({
       required_error: "Date Join is required",
       invalid_type_error: "Date should be in yyyy-mm-dd format",
     })
     .date(),
+  qualifications: z.string().min(1, { message: "Qualifictions are required" }),
 });
 
-export type StaffFormData = z.infer<typeof schema>;
+export type StaffFormData = z.infer<typeof staffDataSchema>;
 
 interface StaffEditableFormProps {
   staffDetails: StaffFormData;
@@ -58,7 +64,7 @@ const StaffEditableForm = ({ staffDetails }: StaffEditableFormProps) => {
     formState: { errors },
   } = useForm<StaffFormData>({
     defaultValues: staffDetails,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(staffDataSchema),
   });
 
   const onSubmit = (data: StaffFormData) => {
@@ -150,9 +156,18 @@ const StaffEditableForm = ({ staffDetails }: StaffEditableFormProps) => {
             inputType="string"
             formType="editForm"
           />
+
+          <TextArea
+            textInputTitle="Qualifications"
+            name="qualifications"
+            register={register}
+            errors={errors.qualifications}
+            isEditEnabled={isEditEnabled}
+            formType="editForm"
+          />
         </SimpleGrid>
 
-        <HStack mt={5}>
+        <HStack mt={5} justifyContent="flex-start">
           <Button
             size={buttonSizes}
             variant="outline"

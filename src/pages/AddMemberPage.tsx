@@ -1,37 +1,30 @@
 import { z } from "zod";
-import { memberEditableDataSchema } from "../components/MemberEditableForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button, Card, Heading, HStack, SimpleGrid } from "@chakra-ui/react";
 import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
+import { memberDataSchema } from "../components/MemberEditableForm";
+import { MemberFormData } from "../components/MemberEditableForm";
 
-const memberAddDataSchema = memberEditableDataSchema.extend({
-  height: z
-    .number({ message: "height is required" })
-    .nonnegative({ message: "height should not be negative" })
-    .gt(0, { message: "height should be greater than 0" }),
-});
 
-export type MemberAddFormData = z.infer<typeof memberAddDataSchema>;
 
 const AddMemberPage = () => {
-
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<MemberAddFormData>({
-    resolver: zodResolver(memberAddDataSchema),
+  } = useForm<MemberFormData>({
+    resolver: zodResolver(memberDataSchema),
   });
 
-  const navigation=useNavigate()
+  const navigation = useNavigate();
 
-  const onsubmitFormData = (data: MemberAddFormData) => {
+  const onsubmitFormData = (data:MemberFormData) => {
     console.log("button");
-    navigation(`/addPayment/:${1011}`,{state:data})
+    navigation(`/addPayment/:${1011}`, { state: data });
   };
 
   return (
@@ -48,7 +41,9 @@ const AddMemberPage = () => {
           },
         }}
       >
-        <Heading color="#000" size={{sm:"md",md:"lg",xl:"xl"}}>New Member Details</Heading>
+        <Heading color="#000" size={{ sm: "md", md: "lg", xl: "xl" }}>
+          New Member Details
+        </Heading>
         <Card backgroundColor="#fff" variant="elevated" padding={2}>
           <form onSubmit={handleSubmit(onsubmitFormData)}>
             <SimpleGrid
@@ -128,7 +123,6 @@ const AddMemberPage = () => {
                 inputType="number"
                 formType="addForm"
               />
-
             </SimpleGrid>
 
             <HStack justifyContent="space-between" mt={5}>
@@ -139,7 +133,7 @@ const AddMemberPage = () => {
                 padding={5}
                 size={responsiveButtonSize}
                 _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
-                onClick={()=>navigation("/members")}
+                onClick={() => navigation("/members")}
               >
                 Back
               </Button>

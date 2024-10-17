@@ -10,6 +10,7 @@ import CurrentSchedulePage from "./pages/CurrentSchedulePage";
 import HistorySchedulePage from "./pages/HistorySchedulePage";
 import AddMemberPage from "./pages/AddMemberPage";
 import AddPaymentPage from "./pages/AddPaymentPage";
+import AddStaffMemberPage from "./pages/AddStaffMemberPage";
 
 const routes=createBrowserRouter([
     {
@@ -22,6 +23,7 @@ const routes=createBrowserRouter([
             {path:'members/addMember',element:<AddMemberPage/>},
             {path:'staff',element:<StaffMembersPage/>},
             {path:'staff/:id',element:<StaffMemberDetails/>},
+            {path:'staff/addStaffMember',element:<AddStaffMemberPage/>},
             {path:'schedule',element:<SchedulePage/>},
             {path:'schedule/:id',element:<CurrentSchedulePage/>},
             {path:'schedule/historySchedule/:id',element:<HistorySchedulePage/>},
