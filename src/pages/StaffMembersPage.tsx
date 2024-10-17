@@ -20,72 +20,83 @@ const StaffMembersPage = () => {
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+          
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+         
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+        
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+          
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+         
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+          
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+       
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+          
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+         
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+          
         },
         {
           id: 1011,
           name: "Kasun Perera",
           phone: "0712334489",
           Gender: "Male",
+        
         },
       ];
   return (
     <>
     <Box overflow="auto" width="100%" height="100%">
-        <SearchHeadingBar buttonPressed={buttonPress} />
+        <SearchHeadingBar buttonPressed={buttonPress} heading="Staff Members" buttonText="Add Member" />
         <TableComponent thArray={['MemberId','Name','Phone','Gender','Action']} onPressViewButton={viewButtonPressed} personArray={data} arrayType="Staff"/>
       </Box>
     </>

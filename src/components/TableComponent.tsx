@@ -13,7 +13,7 @@ interface Person{
   id:number,
   name:string,
   expDate?:string,
-  dateRegister:string,
+  dateRegister?:string,
   payment?:string,
   Gender:string
 }
@@ -49,8 +49,9 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
               <Td>{person.id}</Td>
               <Td>{person.name}</Td>
               {arrayType=="Member"?<Td>{person.expDate}</Td>:null}
-              <Td>{person.dateRegister}</Td>
+              {arrayType=="Member"?<Td>{person.dateRegister}</Td>:null}
               {arrayType=="Member"?<Td>{person.payment}</Td>:null}
+              {arrayType=="Staff"?<Td>{person.Gender}</Td>:null}
               <Td>{person.Gender}</Td>
               <Td>
                 <Button
@@ -73,3 +74,6 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
 };
 
 export default TableComponent;
+
+// in here same table component is used for both staff and Members.the arraytype represent whethter it is from member data or staff data.
+// the data showing in the table for satff and members are totally different
