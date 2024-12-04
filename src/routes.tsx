@@ -13,8 +13,16 @@ import AddPaymentPage from "./pages/AddPaymentPage";
 import AddStaffMemberPage from "./pages/AddStaffMemberPage";
 import ExercisePage from "./pages/ExercisePage";
 import AddExercisePage from "./pages/AddExercisePage";
+import Login from "./pages/Login";
 
 const routes=createBrowserRouter([
+
+    {
+        path: '/',
+        element: <Login/>, // LoginPage as the default entry point
+        index: true,
+    },
+
     {
         path:'/',
         element:<Layout/>,
