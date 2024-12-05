@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import Layout from "./pages/Layout";
 import HomeDashbord from "./pages/HomeDashbordPage";
 import MembersPage from "./pages/MembersPage";
@@ -15,33 +15,35 @@ import ExercisePage from "./pages/ExercisePage";
 import AddExercisePage from "./pages/AddExercisePage";
 import Login from "./pages/Login";
 
-const routes=createBrowserRouter([
+const routes = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />, // LoginPage as the default entry point
+    index: true,
+  },
 
-    {
-        path: '/',
-        element: <Login/>, // LoginPage as the default entry point
-        index: true,
-    },
-
-    {
-        path:'/',
-        element:<Layout/>,
-        children:[
-            {index:true,element:<HomeDashbord/>},
-            {path:'members',element:<MembersPage/>},
-            {path:'members/:id',element:<MemberDetailsPage/>},
-            {path:'members/addMember',element:<AddMemberPage/>},
-            {path:'staff',element:<StaffMembersPage/>},
-            {path:'staff/:id',element:<StaffMemberDetails/>},
-            {path:'staff/addStaffMember',element:<AddStaffMemberPage/>},
-            {path:'schedule',element:<SchedulePage/>},
-            {path:'schedule/:id',element:<CurrentSchedulePage/>},
-            {path:'schedule/historySchedule/:id',element:<HistorySchedulePage/>},
-            {path:'addPayment/:id',element:<AddPaymentPage/>},
-            {path:'exercises',element:<ExercisePage/>},
-            {path:'exercises/addExercise',element:<AddExercisePage/>}
-        ]
-    }
-])
+  {
+    path: "/app",
+    element: <Layout />,
+    children: [
+      { path: "dashbord", element: <HomeDashbord /> },
+      { path: "members", element: <MembersPage /> },
+      { path: "members/:id", element: <MemberDetailsPage /> },
+      { path: "members/addMember", element: <AddMemberPage /> },
+      { path: "staff", element: <StaffMembersPage /> },
+      { path: "staff/:id", element: <StaffMemberDetails /> },
+      { path: "staff/addStaffMember", element: <AddStaffMemberPage /> },
+      { path: "schedule", element: <SchedulePage /> },
+      { path: "schedule/:id", element: <CurrentSchedulePage /> },
+      {
+        path: "schedule/historySchedule/:id",
+        element: <HistorySchedulePage />,
+      },
+      { path: "addPayment/:id", element: <AddPaymentPage /> },
+      { path: "exercises", element: <ExercisePage /> },
+      { path: "exercises/addExercise", element: <AddExercisePage /> },
+    ],
+  },
+]);
 
 export default routes;
