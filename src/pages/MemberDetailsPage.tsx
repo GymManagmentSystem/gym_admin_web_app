@@ -20,6 +20,7 @@ const MemberDetailsPage = () => {
     dateJoin:"2020-04-22",
     age:24,
     weight:70,
+    height:120,
     address:'Kaluthara,Colombo'
   };
 
@@ -31,7 +32,8 @@ const MemberDetailsPage = () => {
     amount:3000,
     paymentDate:"2024/10/14",
     expDate:"2024/9/14",
-    validTime:"1"
+    validTime:"1",
+    
   },
   {
     planName:"Monthly Plan",
@@ -40,7 +42,7 @@ const MemberDetailsPage = () => {
     amount:3000,
     paymentDate:"2024/8/14",
     expDate:"2024/9/14",
-    validTime:"1"
+    validTime:"1",
   },
   {
     planName:"Monthly Plan",
@@ -49,7 +51,7 @@ const MemberDetailsPage = () => {
     amount:3000,
     paymentDate:"2024/7/14",
     expDate:"2024/8/14",
-    validTime:"1"
+    validTime:"1",
   }
   ]
   

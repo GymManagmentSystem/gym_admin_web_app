@@ -1,10 +1,62 @@
-import { Box, Grid, GridItem, Image } from "@chakra-ui/react"
-import LoginImage from "../assets/login.png"
-import LoginHeader from "../components/LoginHeader"
-import LoginCard from "../components/LoginCard"
+import { Box, Grid, GridItem, Image, useToast } from "@chakra-ui/react";
+import LoginImage from "../assets/login.png";
+import LoginHeader from "../components/LoginHeader";
+import LoginCard from "../components/LoginCard";
+import useLogin from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
+interface UserCredentials {
+  userName: string;
+  password: string;
+}
 
 const Login = () => {
+  const toast = useToast();
+  const loginRequest = useLogin();
+  const navigate = useNavigate();
+
+  const handleLogin = (userCredentials: UserCredentials) => {
+    loginRequest.mutate(userCredentials, {
+      onSuccess: (data) => {
+        if ("successMessage" in data) {
+          toast({
+            title: "Login successful!",
+            description: data.successMessage,
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "yellow",
+          });
+          navigate("/app/dashbord");
+        }
+      },
+      onError: (error) => {
+        if (error.response && error.response.data) {
+          toast({
+            title: "Invalid credentials",
+            description: error.response.data.error,
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "yellow",
+          });
+        } else {
+          toast({
+            title: "Internal Server Error",
+            description: "Internal Server Error",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "yellow",
+          });
+        }
+      },
+    });
+  };
+
   return (
     <>
       <Grid
@@ -47,13 +99,12 @@ const Login = () => {
             transform="translate(-50%, -50%)"
             zIndex="1"
           >
-            <LoginCard/>
+            <LoginCard onSubmit={handleLogin} />
           </Box>
         </GridItem>
       </Grid>
     </>
-    
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
