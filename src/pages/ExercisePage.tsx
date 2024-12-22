@@ -6,7 +6,7 @@ import ExerciseCard from "../components/ExerciseCard";
 const ExercisePage = () => {
   const navigate = useNavigate();
   const buttonPress = () => {
-    navigate("/exercises/addExercise");
+    navigate("/app/exercises/addExercise");
   };
 
   const exercises = [

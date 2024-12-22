@@ -7,15 +7,19 @@ import {
   HStack,
   Select,
   SimpleGrid,
+  useToast,
 } from "@chakra-ui/react";
 import TextInput from "../components/TextInput";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MemberFormData } from "../components/MemberEditableForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SelectFeild from "../components/Select";
+import useGetPackageDetails from "../hooks/useGetPackageDetails";
+import useAddMember from "../hooks/useAddMember";
+import { AxiosError } from "axios";
 
 const paymentSchema = z.object({
   memberName: z.string(),
@@ -26,6 +30,7 @@ const paymentSchema = z.object({
   }),
   paymentDate: z.string().date(),
   paymentTime: z.string().time(),
+  expirayDate: z.string().date(),
 });
 
 export type PaymentFormData = z.infer<typeof paymentSchema>;
@@ -34,20 +39,19 @@ const AddPaymentPage = () => {
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
   const responsiveHeadingSize = { sm: "md", md: "lg", xl: "xl" };
 
-  const packageTypes = [
-    "Membership",
-    "Full Time",
-    "One Month",
-    "3 Months",
-    "6 Months",
-    "One Year",
-  ];
+  // calling hook to get package Data
+  const { data: packagesList, error, isLoading } = useGetPackageDetails();
   const location = useLocation();
   const memberData = location.state as MemberFormData;
+  const addMember = useAddMember();
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<PaymentFormData>({
     defaultValues: {
@@ -60,6 +64,7 @@ const AddPaymentPage = () => {
     resolver: zodResolver(paymentSchema),
   });
 
+  //handlinn submitted data
   const onsubmitPaymentForm = (data: PaymentFormData) => {
     const nameUpdatedMemberDate = {
       ...memberData,
@@ -71,9 +76,67 @@ const AddPaymentPage = () => {
       paymentTime: data.paymentTime,
       packageAmount: data.packageAmount,
       packageType: data.packageType,
+      validity: true,
+      expirayDate: data.expirayDate,
     };
+
+    addMember.mutate(updatedMemberData, {
+      onSuccess: (data) => {
+        console.log(data);
+        toast({
+          title: "User Added Successful!",
+          description: "User Added Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "yellow",
+        });
+        navigate("/app/dashbord");
+      },
+
+      onError: (error) => {
+        console.log(`error has been occured:${error instanceof Error?error.message:"unexpected error"}`);
+          toast({
+            title: "Error!",
+            description: error instanceof Error?error.message:"unexpected error",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "red",
+          });
+      },
+    });
     console.log(updatedMemberData);
   };
+
+  //keep the track of the changes done to packageType and change packageAmount and Expiaray date According to that
+  const selectedPackageType = watch("packageType");
+
+  if (selectedPackageType && packagesList) {
+    const selectedPackage = packagesList.find(
+      (pkg) => pkg.packageName === selectedPackageType
+    );
+    if (selectedPackage) {
+      const currentDate = new Date(); // Get today's date
+      const expiryDate = new Date(currentDate);
+      expiryDate.setDate(
+        currentDate.getDate() + selectedPackage.packageValidTime * 7
+      );
+      const formattedExpiryDate = format(expiryDate, "yyyy-MM-dd");
+      setValue("expirayDate", formattedExpiryDate);
+      setValue("packageAmount", selectedPackage.packageAmount);
+    }
+  }
+
+  if (error) {
+    return error.message;
+  }
+
+  if (isLoading) {
+    return isLoading;
+  }
 
   return (
     <Card
@@ -135,15 +198,19 @@ const AddPaymentPage = () => {
               formType="addForm"
             />
 
+            <TextInput
+              textInputTitle="Expiary Date"
+              name="expirayDate"
+              register={register}
+              errors={errors.expirayDate}
+              inputType="string"
+              formType="addForm"
+            />
+
             <SelectFeild
-              selectArray={[
-                "Membership",
-                "Full Time",
-                "One Month",
-                "3 Months",
-                "6 Months",
-                "One Year",
-              ]}
+              selectArray={
+                packagesList ? packagesList.map((pkg) => pkg.packageName) : []
+              }
               textInputTitle="Package Type"
               name="packageType"
               register={register}

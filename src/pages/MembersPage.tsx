@@ -2,125 +2,50 @@ import { Box } from "@chakra-ui/react";
 import SearchHeadingBar from "../components/SearchHeadingBar";
 import TableComponent from "../components/TableComponent";
 import { useNavigate } from "react-router-dom";
+import useMemeberTableDetails from "../hooks/useMemberTableDetails";
+import { useState } from "react";
 
 const MembersPage = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const buttonPress = () => {
-    navigate('/members/addMember')
+    navigate("/app/members/addMember");
   };
 
-  const viewButtonPressed = (id:number) => {
-    navigate(`/members/:${id}`)
-
+  const viewButtonPressed = (id: number) => {
+    navigate(`/app/members/:${id}`);
   };
 
-  const data = [
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-    {
-      id: 1011,
-      name: "Kasun Perera",
-      expDate: "2025-01-03",
-      dateRegister: "2020-01-20",
-      payment: "Yes",
-      Gender: "Male",
-    },
-  ];
+  const [searchTerm,setSearchTerm]=useState<string>("")
+
+  const { data: memberDetails, error, isLoading } = useMemeberTableDetails();
+
+
+  if (error) console.log(error.message);
+  if (memberDetails) console.log(memberDetails);
+  if (isLoading) console.log(isLoading);
+
+  const filterdSearchMembers=searchTerm?memberDetails?.filter((member)=>member.memberId.toString().includes(searchTerm)):memberDetails
 
   return (
     <>
       <Box overflow="auto" width="100%" height="100%">
-        <SearchHeadingBar buttonPressed={buttonPress} heading="All Members" buttonText="Add Member" />
+        <SearchHeadingBar
+          buttonPressed={buttonPress}
+          heading="All Members"
+          buttonText="Add Member"
+          onSearch={(term)=>setSearchTerm(term)}
+        />
         <TableComponent
           thArray={[
             "MemberId",
             "Name",
-            "Membership Expiry",
+            "Contact Number",
             "Date Register",
-            "Payment",
             "Gender",
             "Action",
           ]}
           onPressViewButton={viewButtonPressed}
-          personArray={data}
+          personArray={filterdSearchMembers?filterdSearchMembers:[]}
           arrayType="Member"
         />
       </Box>

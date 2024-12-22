@@ -42,6 +42,9 @@ export const memberDataSchema = z.object({
     .number({ message: "height is required" })
     .nonnegative({ message: "height should not be negative" })
     .gt(0, { message: "height should be greater than 0" }),
+
+  gender: z.string({ required_error: "Gender is required" }),
+  dateRegistered:z.string({ required_error: "Date Registered is required" }).date().optional()
 });
 
 export type MemberFormData = z.infer<typeof memberDataSchema>;
@@ -151,6 +154,7 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             inputType="string"
             formType="editForm"
           />
+
         </SimpleGrid>
 
         <HStack mt={5}>
