@@ -13,12 +13,14 @@ interface SearchHeadingBarProps {
   heading: string;
   buttonText: string;
   buttonPressed: () => void;
+  onSearch:(term:string)=> void
 }
 
 const SearchHeadingBar = ({
   heading,
   buttonText,
   buttonPressed,
+  onSearch
 }: SearchHeadingBarProps) => {
   const headingFontSize = { sm: "small", md: "medium", lg: "large" };
   const buttonTextSize = { sm: "x-small", xl: "small" };
@@ -46,6 +48,7 @@ const SearchHeadingBar = ({
           _placeholder={{ textColor: "#E6E6E5", fontWeight: "600" }}
           focusBorderColor="#F1B900"
           size={inputSize}
+          onChange={(e)=>onSearch(e.target.value)}
         />
       </InputGroup>
       <Button

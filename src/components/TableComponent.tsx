@@ -10,12 +10,12 @@ import {
 } from "@chakra-ui/react";
 
 interface Person{
-  id:number,
-  name:string,
-  expDate?:string,
-  dateRegister?:string,
-  payment?:string,
-  Gender:string
+  memberId:number,
+  firstName:string,
+  lastName:string
+  contactNumber?:string
+  dateRegistered?:string,
+  gender:string
 }
 
 interface TableComponent {
@@ -45,20 +45,19 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
         </Thead>
         <Tbody color="#000" borderBottomColor="#F1B900" fontSize={{sm:"0.5rem",md:"initial"}}>
           {personArray.map((person) => (
-            <Tr key={person.id}>
-              <Td>{person.id}</Td>
-              <Td>{person.name}</Td>
-              {arrayType=="Member"?<Td>{person.expDate}</Td>:null}
-              {arrayType=="Member"?<Td>{person.dateRegister}</Td>:null}
-              {arrayType=="Member"?<Td>{person.payment}</Td>:null}
-              {arrayType=="Staff"?<Td>{person.Gender}</Td>:null}
-              <Td>{person.Gender}</Td>
+            <Tr key={person.memberId}>
+              <Td>{person.memberId}</Td>
+              <Td>{person.firstName+person.lastName}</Td>
+              {arrayType=="Member"?<Td>{person.contactNumber}</Td>:null}
+              {arrayType=="Member"?<Td>{person.dateRegistered}</Td>:null}
+              {arrayType=="Staff"?<Td>{person.gender}</Td>:null}
+              <Td>{person.gender}</Td>
               <Td>
                 <Button
                   variant="solid"
                   textColor="#F1B900"
                   size={butonResponsiveSize}
-                  onClick={()=>onPressViewButton(person.id)}
+                  onClick={()=>onPressViewButton(person.memberId)}
                   _hover={{textColor:"#000"}}
                   
                 >

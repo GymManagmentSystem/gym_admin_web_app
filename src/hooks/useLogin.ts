@@ -3,18 +3,19 @@ import axios from "axios";
 
 
 
+
 interface UserCredentials {
     userName: string;
     password: string;
   }
   
   interface SuccessResponse {
-    successMessage: String;
-    token: String;
+    successMessage: string;
+    token:string;
   }
   
   interface ErrorResponse {
-    error: String;
+    error: string;
   }
   
   type Response = SuccessResponse | ErrorResponse;
@@ -41,7 +42,9 @@ const useLogin=()=>{
           password: userCredentials.password,
         }
       );
-
+      localStorage.setItem("authToken",reponse.data.token)
+      console.log(reponse.data.token)
+      axios.defaults.headers.common['Authorization']=`Bearer ${reponse.data.token}`
       return reponse.data;
     },
   });

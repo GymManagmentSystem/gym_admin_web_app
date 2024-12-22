@@ -6,11 +6,14 @@ import MemberEditableForm from "../components/MemberEditableForm";
 import PaymentHistroyTable from "../components/PaymentHistroyTable";
 
 
+
 const MemberDetailsPage = () => {
   const { id } = useParams(); //getting id from the routing parameters
   const mainCardContainerWidth={sm:"100%",md:"90%",lg:"90%",xl:"90%"}
   const headerCardContainerWidth={sm:"100%",md:"90%",lg:"90%",xl:"90%"}
   const headerCardContainerHeight={sm:"70px",md:"70px",lg:"70px",xl:"70px"}
+
+
 
   const personData = {
     firstName: "Nethupama",

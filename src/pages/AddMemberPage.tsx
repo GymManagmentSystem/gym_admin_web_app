@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button, Card, Heading, HStack, SimpleGrid } from "@chakra-ui/react";
@@ -6,8 +5,6 @@ import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
 import { memberDataSchema } from "../components/MemberEditableForm";
 import { MemberFormData } from "../components/MemberEditableForm";
-
-
 
 const AddMemberPage = () => {
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
@@ -18,13 +15,16 @@ const AddMemberPage = () => {
     formState: { errors },
   } = useForm<MemberFormData>({
     resolver: zodResolver(memberDataSchema),
+    defaultValues:{
+      dateRegistered:new Date().toISOString().split("T")[0]
+    }
   });
 
   const navigation = useNavigate();
 
-  const onsubmitFormData = (data:MemberFormData) => {
+  const onsubmitFormData = (data: MemberFormData) => {
     console.log("button");
-    navigation(`/addPayment/:${1011}`, { state: data });
+    navigation(`/app/addPayment/:${1011}`, { state: data });
   };
 
   return (
@@ -60,7 +60,6 @@ const AddMemberPage = () => {
                 inputType="string"
                 formType="addForm"
               />
-
               <TextInput
                 textInputTitle="Last Name"
                 name="lastName"
@@ -69,7 +68,6 @@ const AddMemberPage = () => {
                 inputType="string"
                 formType="addForm"
               />
-
               <TextInput
                 textInputTitle="Contact Number"
                 name="contactNumber"
@@ -78,7 +76,6 @@ const AddMemberPage = () => {
                 inputType="number"
                 formType="addForm"
               />
-
               <TextInput
                 textInputTitle="Email"
                 name="email"
@@ -87,7 +84,6 @@ const AddMemberPage = () => {
                 inputType="string"
                 formType="addForm"
               />
-
               <TextInput
                 textInputTitle="Home Address"
                 name="address"
@@ -96,7 +92,6 @@ const AddMemberPage = () => {
                 inputType="string"
                 formType="addForm"
               />
-
               <TextInput
                 textInputTitle="Age"
                 name="age"
@@ -105,7 +100,6 @@ const AddMemberPage = () => {
                 inputType="number"
                 formType="addForm"
               />
-
               <TextInput
                 textInputTitle="Weight"
                 name="weight"
@@ -114,7 +108,6 @@ const AddMemberPage = () => {
                 inputType="number"
                 formType="addForm"
               />
-
               <TextInput
                 textInputTitle="Height"
                 name="height"
@@ -123,6 +116,23 @@ const AddMemberPage = () => {
                 inputType="number"
                 formType="addForm"
               />
+              <TextInput
+                textInputTitle="Gender"
+                name="gender"
+                register={register}
+                errors={errors.gender}
+                inputType="string"
+                formType="addForm"
+              />
+              <TextInput
+                textInputTitle="Date Registered"
+                name="dateRegistered"
+                register={register}
+                errors={errors.dateRegistered}
+                inputType="string"
+                formType="addForm"
+              />
+              
             </SimpleGrid>
 
             <HStack justifyContent="space-between" mt={5}>
