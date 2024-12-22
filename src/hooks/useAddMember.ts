@@ -8,7 +8,7 @@ interface savedMember{
     email:string,
     age:number,
     address:string,
-    contactNumber:number,
+    contactNumber:string,
     weight:number,
     height:number,
     gender:string,
@@ -34,17 +34,12 @@ const useAddMember=()=>{
     return useMutation<savedMember,AxiosError|ErrorResponse,savedMember>({
         mutationFn:async(memberData:savedMember)=>{
             try{
-              const {data}=await axios.post<MemberResponse>("http://localhost:8080/api/v1/members/",memberData)
-              if("data" in data){
-                return data.data //as we are returning data.data this should be return savedMmember not MemberResponse
-              }else{
-                console.log("first catch error in try block",data.errorMessage)
-                throw new Error (data.errorMessage);
-              }
+              const {data}=await axios.post<SuccessResponse>("http://localhost:8080/api/v1/members/",memberData)
+              return data.data
         }catch(e){
             if(e instanceof AxiosError){
-                console.log("catch error in catch block",e.response?.data)
                 const error=e.response?.data?.errorMessage||"Request failed"
+                console.log("catch error in catch block",error)
                 throw new Error(error);      
             }
             console.log(e)

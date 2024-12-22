@@ -15,16 +15,19 @@ const MembersPage = () => {
     navigate(`/app/members/:${id}`);
   };
 
-  const [searchTerm,setSearchTerm]=useState<string>("")
+  const [searchTerm, setSearchTerm] = useState<string>(""); // search Term
 
   const { data: memberDetails, error, isLoading } = useMemeberTableDetails();
-
 
   if (error) console.log(error.message);
   if (memberDetails) console.log(memberDetails);
   if (isLoading) console.log(isLoading);
 
-  const filterdSearchMembers=searchTerm?memberDetails?.filter((member)=>member.memberId.toString().includes(searchTerm)):memberDetails
+  const filterdSearchMembers = searchTerm
+    ? memberDetails?.filter((member) =>
+        member.memberId.toString().includes(searchTerm)
+      )
+    : memberDetails;
 
   return (
     <>
@@ -33,7 +36,7 @@ const MembersPage = () => {
           buttonPressed={buttonPress}
           heading="All Members"
           buttonText="Add Member"
-          onSearch={(term)=>setSearchTerm(term)}
+          onSearch={(term) => setSearchTerm(term)}
         />
         <TableComponent
           thArray={[
@@ -45,7 +48,7 @@ const MembersPage = () => {
             "Action",
           ]}
           onPressViewButton={viewButtonPressed}
-          personArray={filterdSearchMembers?filterdSearchMembers:[]}
+          personArray={filterdSearchMembers ? filterdSearchMembers : []}
           arrayType="Member"
         />
       </Box>
