@@ -22,10 +22,11 @@ export const memberDataSchema = z.object({
     .string({ required_error: "Email is required" })
     .email({ message: "Invalid Email Address" }),
 
-  contactNumber: z.number({
+  contactNumber: z.string({
     required_error: "ContactNumber is required",
-    invalid_type_error: "ContactNumber must be a number",
-  }),
+  })
+  .length(10,{message:"contact number must have 10 digits"})
+  ,
   age: z
     .number({ required_error: "age is required" })
     .int({ message: "age should be whole number" })
@@ -54,6 +55,8 @@ interface MemberEditableFormProps {
 }
 
 const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
+
+  console.log("member details are",memberDetails);
   const [isEditEnabled, setEditEnabled] = useState(false);
   const buttonSizes = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
   const {

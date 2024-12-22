@@ -19,7 +19,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SelectFeild from "../components/Select";
 import useGetPackageDetails from "../hooks/useGetPackageDetails";
 import useAddMember from "../hooks/useAddMember";
-import { AxiosError } from "axios";
+import { useQueryClient } from "@tanstack/react-query";
 
 const paymentSchema = z.object({
   memberName: z.string(),
@@ -38,6 +38,8 @@ export type PaymentFormData = z.infer<typeof paymentSchema>;
 const AddPaymentPage = () => {
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
   const responsiveHeadingSize = { sm: "md", md: "lg", xl: "xl" };
+
+  const queryClient = useQueryClient();
 
   // calling hook to get package Data
   const { data: packagesList, error, isLoading } = useGetPackageDetails();
@@ -92,20 +94,26 @@ const AddPaymentPage = () => {
           position: "top-right",
           colorScheme: "yellow",
         });
+        queryClient.invalidateQueries(["memberTableDetails"]);
         navigate("/app/dashbord");
       },
 
       onError: (error) => {
-        console.log(`error has been occured:${error instanceof Error?error.message:"unexpected error"}`);
-          toast({
-            title: "Error!",
-            description: error instanceof Error?error.message:"unexpected error",
-            status: "error",
-            duration: 3000,
-            isClosable: true,
-            position: "top-right",
-            colorScheme: "red",
-          });
+        console.log(
+          `error has been occured:${
+            error instanceof Error ? error.message : "unexpected error"
+          }`
+        );
+        toast({
+          title: "Error!",
+          description:
+            error instanceof Error ? error.message : "unexpected error",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "red",
+        });
       },
     });
     console.log(updatedMemberData);
