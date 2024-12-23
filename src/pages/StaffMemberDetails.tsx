@@ -63,7 +63,10 @@ const StaffMemberDetails = () => {
                 justifyContent="space-between"
               >
                 <Box display="flex" flexDirection="column" alignItems="center">
-                  <Heading size={{ sm: "sm", md: "md" }}>Kasun Perera</Heading>
+                  {memberDetails && (
+                    <Heading size={{ sm: "sm", md: "md" }}>{memberDetails.firstName+" "+memberDetails.lastName}</Heading>
+                  )}
+                  
                   <Box
                     as={CgProfile}
                     height="50px"

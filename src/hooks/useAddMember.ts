@@ -26,7 +26,6 @@ interface ErrorResponse{
     errorMessage:string
 }
 
-type MemberResponse = SuccessResponse | ErrorResponse
 
 
 const useAddMember=()=>{

@@ -116,7 +116,7 @@ const StaffEditableForm = ({ staffDetails }: StaffEditableFormProps) => {
             register={register}
             errors={errors.contactNumber}
             isEditEnabled={isEditEnabled}
-            inputType="number"
+            inputType="string"
             formType="editForm"
           />
           <TextInput
