@@ -66,7 +66,9 @@ const MemberDetailsPage = () => {
                 justifyContent="space-between"
               >
                 <Box display="flex" flexDirection="column" alignItems="center">
-                  <Heading size={{ sm: "sm", md: "md" }}>Kasun Perera</Heading>
+                  {singleMemberDetails?.member &&(
+                    <Heading size={{ sm: "sm", md: "md" }}>{singleMemberDetails.member.firstName+" "+singleMemberDetails.member.lastName}</Heading>
+                  )}
                   <Box
                     as={CgProfile}
                     height="50px"
