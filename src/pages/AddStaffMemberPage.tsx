@@ -8,6 +8,7 @@ import {
   HStack,
   SimpleGrid,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,9 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextArea from "../components/TextArea";
+import SelectFeild from "../components/Select";
+import useAddStaffMember from "../hooks/useAddStaffMember";
+import { useQueryClient } from "@tanstack/react-query";
 
 const addStaffSchema = staffDataSchema;
 
@@ -24,18 +28,53 @@ export type StaffAddFormData = z.infer<typeof addStaffSchema>;
 const AddStaffMemberPage = () => {
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
   const navigation = useNavigate();
+  const addStaffMember = useAddStaffMember();
+  const toast = useToast();
+  const queryClient = useQueryClient();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<StaffAddFormData>({
     resolver: zodResolver(addStaffSchema),
+    defaultValues: {
+      registeredDate: new Date().toISOString().split("T")[0],
+    },
   });
 
   const onSubmitStaffMember = (data: StaffAddFormData) => {
+    addStaffMember.mutate(data, {
+      onSuccess: (data) => {
+        toast({
+          title: "User Added Successful!",
+          description: "User Added Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "yellow",
+        });
+        queryClient.invalidateQueries(["staffMemberTableDetails"]);
+      },
+      onError: (error) => {
+        toast({
+          title: "Error!",
+          description:
+            error instanceof Error ? error.message : "unexpected error",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "red",
+        });
+      },
+    });
     console.log(data);
   };
+
+  const selectedPosition = watch("position");
 
   return (
     <Card
@@ -83,7 +122,7 @@ const AddStaffMemberPage = () => {
               name="contactNumber"
               register={register}
               errors={errors.contactNumber}
-              inputType="number"
+              inputType="string"
               formType="addForm"
             />
             <TextInput
@@ -112,21 +151,42 @@ const AddStaffMemberPage = () => {
               inputType="string"
               formType="addForm"
             />
+
             <TextInput
+              textInputTitle="Registered Date"
+              name="registeredDate"
+              register={register}
+              errors={errors.registeredDate}
+              inputType="string"
+              formType="addForm"
+            />
+
+            <SelectFeild
+              selectArray={["Admin", "Instructor", "Maintaince", "Helper"]}
               textInputTitle="Position"
               name="position"
               register={register}
               errors={errors.position}
+              formType="addForm"
+            />
+
+            <TextInput
+              textInputTitle="Gender"
+              name="gender"
+              register={register}
+              errors={errors.gender}
               inputType="string"
               formType="addForm"
             />
+
             <TextInput
-              textInputTitle="Registered Date"
-              name="RegisterDate"
+              textInputTitle="Password"
+              name="password"
               register={register}
-              errors={errors.RegisterDate}
-              inputType="string"
+              errors={errors.password}
+              inputType="password"
               formType="addForm"
+              isEditEnabled={selectedPosition == "Admin" ? false : true}
             />
 
             <TextArea

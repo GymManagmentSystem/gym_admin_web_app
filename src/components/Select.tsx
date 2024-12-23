@@ -2,9 +2,10 @@ import { FormControl, FormErrorMessage, FormLabel, Select } from "@chakra-ui/rea
 import { PaymentFormData } from "../pages/AddPaymentPage";
 import { Path, UseFormRegister, FieldError } from "react-hook-form";
 import { ExerciseFormData } from "../pages/AddExercisePage";
+import { StaffAddFormData } from "../pages/AddStaffMemberPage";
 
 
-interface SelectProps<T extends PaymentFormData | ExerciseFormData> {
+interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFormData> {
   selectArray:string[]
   textInputTitle: string;
   name: Path<T>;
@@ -13,7 +14,7 @@ interface SelectProps<T extends PaymentFormData | ExerciseFormData> {
   formType: "editForm" | "addForm";
 }
 
-const SelectFeild = <T extends PaymentFormData | ExerciseFormData>({
+const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormData>({
   textInputTitle,
   name,
   register,
