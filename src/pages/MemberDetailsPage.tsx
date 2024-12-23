@@ -1,13 +1,13 @@
 import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { useEffect, useState } from "react";
 import MemberEditableForm from "../components/MemberEditableForm";
 import PaymentHistroyTable from "../components/PaymentHistroyTable";
 import useGetMemberDetailsById from "../hooks/useGetMemberDetailsById";
 
 const MemberDetailsPage = () => {
   const { id } = useParams(); //getting id from the routing parameters
+  const memberId=id?parseInt(id.substring(1),10):1
   const mainCardContainerWidth = {
     sm: "100%",
     md: "90%",
@@ -31,7 +31,7 @@ const MemberDetailsPage = () => {
     data: singleMemberDetails,
     error,
     isLoading,
-  } = useGetMemberDetailsById(1);
+  } = useGetMemberDetailsById(memberId);
 
   if (isLoading) {
     return <Heading>Loading.......</Heading>;

@@ -1,11 +1,14 @@
-import { Button, HStack, SimpleGrid } from "@chakra-ui/react";
+import { Button, HStack, SimpleGrid, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import TextInput from "./TextInput";
+import useEditMemberData from "../hooks/useEditMemberData";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const memberDataSchema = z.object({
+  memberId: z.number().optional(),
   firstName: z
     .string({ required_error: "FirstName is required" })
     .min(3, { message: "First Name Should have more than 03 characters" })
@@ -22,11 +25,11 @@ export const memberDataSchema = z.object({
     .string({ required_error: "Email is required" })
     .email({ message: "Invalid Email Address" }),
 
-  contactNumber: z.string({
-    required_error: "ContactNumber is required",
-  })
-  .length(10,{message:"contact number must have 10 digits"})
-  ,
+  contactNumber: z
+    .string({
+      required_error: "ContactNumber is required",
+    })
+    .length(10, { message: "contact number must have 10 digits" }),
   age: z
     .number({ required_error: "age is required" })
     .int({ message: "age should be whole number" })
@@ -45,7 +48,10 @@ export const memberDataSchema = z.object({
     .gt(0, { message: "height should be greater than 0" }),
 
   gender: z.string({ required_error: "Gender is required" }),
-  dateRegistered:z.string({ required_error: "Date Registered is required" }).date().optional()
+  dateRegistered: z
+    .string({ required_error: "Date Registered is required" })
+    .date()
+    .optional(),
 });
 
 export type MemberFormData = z.infer<typeof memberDataSchema>;
@@ -55,10 +61,12 @@ interface MemberEditableFormProps {
 }
 
 const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
-
-  console.log("member details are",memberDetails);
   const [isEditEnabled, setEditEnabled] = useState(false);
   const buttonSizes = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
+  const editMemberForm = useEditMemberData();
+  const toast = useToast();
+  const queryClient=useQueryClient()
+
   const {
     register,
     handleSubmit,
@@ -70,6 +78,32 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
 
   const onSubmit = (data: MemberFormData) => {
     setEditEnabled(false);
+    editMemberForm.mutate(data, {
+      onSuccess: (data) => {
+        toast({
+          title: "User Upadted Successfully!",
+          description: "User Updated Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "yellow",
+        });
+        queryClient.invalidateQueries(["memberTableDetails"]);
+      },
+      onError: (error) => {
+        toast({
+          title: "User Upadation Failed",
+          description:
+            error instanceof Error ? error.message : "Unexpected error",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "yellow",
+        });
+      },
+    });
     console.log(data);
   };
 
@@ -82,6 +116,14 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
           columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
           gap={2}
         >
+          <TextInput
+            textInputTitle="Member Id"
+            name="memberId"
+            register={register}
+            errors={errors.memberId}
+            inputType="number"
+            formType="editForm"
+          />
           <TextInput
             textInputTitle="First Name"
             name="firstName"
@@ -107,7 +149,7 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             register={register}
             errors={errors.contactNumber}
             isEditEnabled={isEditEnabled}
-            inputType="number"
+            inputType="string"
             formType="editForm"
           />
           <TextInput
@@ -157,7 +199,14 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
             inputType="string"
             formType="editForm"
           />
-
+          <TextInput
+            textInputTitle="Date Registerd"
+            name="dateRegistered"
+            register={register}
+            errors={errors.dateRegistered}
+            inputType="string"
+            formType="editForm"
+          />
         </SimpleGrid>
 
         <HStack mt={5}>
