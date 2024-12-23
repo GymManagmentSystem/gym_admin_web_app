@@ -15,15 +15,13 @@ const StaffMembersPage = () => {
       const viewButtonPressed=(id:number)=>{
         navigate(`/app/staff/:${id}`)
       }
-
       const [searchTerm,setSearchTerm]=useState<string>()
       const {data:staffMemberDetails,error,isLoading}=useStaffMemberTableDetails()
-
       const filterMembersArray=searchTerm?staffMemberDetails?.filter((member)=>member.memberId.toString().includes(searchTerm)):staffMemberDetails;
 
       
-
-
+  if(isLoading){return isLoading}    
+  if(error){return error.message}    
   return (
     <>
     <Box overflow="auto" width="100%" height="100%">

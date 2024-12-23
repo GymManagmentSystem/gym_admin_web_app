@@ -19,7 +19,7 @@ interface TextInputProps<
   isEditEnabled?: boolean;
   register: UseFormRegister<T>;
   errors?: FieldError;
-  inputType: "number" | "string";
+  inputType: "number" | "string" | "password";
   formType: "editForm" | "addForm";
 }
 
@@ -48,14 +48,15 @@ const TextInput = <
           {textInputTitle}
         </FormLabel>
         <Input
+        type={type}
           size={{ sm: "xs", md: "sm", lg: "lg", xl: "lg" }}
           border="2px solid #E6E6E6"
           color="#000"
           _hover={{ borderColor: "#F1B900" }}
           width="100%"
-          isDisabled={formType == "addForm" ? false : !isEditEnabled}
+          isDisabled={formType == "addForm" ? typeof(isEditEnabled)==undefined?false:isEditEnabled : !isEditEnabled}
           {...register(name, {
-            valueAsNumber: isNumber,
+            valueAsNumber: isNumber,  
           })}
         />
         {errors?.message && (

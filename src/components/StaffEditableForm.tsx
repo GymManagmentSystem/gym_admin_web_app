@@ -23,10 +23,10 @@ export const staffDataSchema = z.object({
     .string({ required_error: "Email is required" })
     .email({ message: "Invalid Email Address" }),
 
-  contactNumber: z.number({
+  contactNumber: z.string({
     required_error: "ContactNumber is required",
-    invalid_type_error: "ContactNumber must be a number",
-  }),
+  })
+  .length(10,{message:"Must have 10 characters"}),
 
   age: z
     .number({ required_error: "age is required" })
@@ -38,15 +38,25 @@ export const staffDataSchema = z.object({
     .string({ required_error: "adress is required" })
     .min(1, { message: "Address is required" }),
   position: z
-    .string({ required_error: "FirstName is required" })
-    .min(1, { message: "Position is required" }),
-  RegisterDate: z
+    .string()
+    .min(1, { message: "Position is required" })
+    .optional(),  
+  registeredDate: z
     .string({
       required_error: "Date Join is required",
       invalid_type_error: "Date should be in yyyy-mm-dd format",
     })
     .date(),
   qualifications: z.string().min(1, { message: "Qualifictions are required" }),
+  password:z.string()
+  .min(8, "Password must be at least 8 characters long")
+  .max(20, "Password must not exceed 20 characters")
+  .regex(/[a-z]/, "Password must contain at least one lowercase letter")
+  .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+  .regex(/\d/, "Password must contain at least one number")
+  .regex(/[@$!%*?&#]/, "Password must contain at least one special character")
+  .optional(),
+gender:z.string({required_error: "gender is required"})
 });
 
 export type StaffFormData = z.infer<typeof staffDataSchema>;
@@ -149,9 +159,9 @@ const StaffEditableForm = ({ staffDetails }: StaffEditableFormProps) => {
           />
           <TextInput
             textInputTitle="Registered Date"
-            name="RegisterDate"
+            name="registeredDate"
             register={register}
-            errors={errors.RegisterDate}
+            errors={errors.registeredDate}
             isEditEnabled={isEditEnabled}
             inputType="string"
             formType="editForm"
