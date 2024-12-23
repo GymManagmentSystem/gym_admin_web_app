@@ -42,6 +42,7 @@ interface ErrorResponse{
 const useGetMemberDetailsById=(memberId:number)=>{
 
     const getMemberDeatilsById=async(memberId:number)=>{
+        console.log("member id :",memberId);
         try{
             const {data}=await axios.get<SuccessResponse>(`http://localhost:8080/api/v1/members/${memberId}`)
             console.log(data.data.payments[0].validity)
