@@ -2,102 +2,33 @@ import { Box } from "@chakra-ui/react"
 import SearchHeadingBar from "../components/SearchHeadingBar"
 import TableComponent from "../components/TableComponent"
 import { useNavigate } from "react-router-dom"
+import useStaffMemberTableDetails from "../hooks/useStaffMemberTableDetails"
+import { useState } from "react"
 
 
 const StaffMembersPage = () => {
     const navigate=useNavigate();
     const buttonPress = () => {
-        navigate('/staff/addStaffMember')
+        navigate('/app/staff/addStaffMember')
       };
     
       const viewButtonPressed=(id:number)=>{
-        navigate(`/staff/:${id}`)
+        navigate(`/app/staff/:${id}`)
       }
 
-      const data = [
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-          
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-         
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-        
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-          
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-         
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-          
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-       
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-          
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-         
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-          
-        },
-        {
-          id: 1011,
-          name: "Kasun Perera",
-          phone: "0712334489",
-          Gender: "Male",
-        
-        },
-      ];
+      const [searchTerm,setSearchTerm]=useState<string>()
+      const {data:staffMemberDetails,error,isLoading}=useStaffMemberTableDetails()
+
+      const filterMembersArray=searchTerm?staffMemberDetails?.filter((member)=>member.memberId.toString().includes(searchTerm)):staffMemberDetails;
+
+      
+
+
   return (
     <>
     <Box overflow="auto" width="100%" height="100%">
-        <SearchHeadingBar buttonPressed={buttonPress} heading="Staff Members" buttonText="Add Member" />
-        <TableComponent thArray={['MemberId','Name','Phone','Gender','Action']} onPressViewButton={viewButtonPressed} personArray={data} arrayType="Staff"/>
+        <SearchHeadingBar onSearch={(term)=>setSearchTerm(term)} buttonPressed={buttonPress} heading="Staff Members" buttonText="Add Member" />
+        <TableComponent thArray={['MemberId','Name','Phone','Gender','Action']} onPressViewButton={viewButtonPressed} personArray={filterMembersArray?filterMembersArray:[]} arrayType="Staff"/>
       </Box>
     </>
   )

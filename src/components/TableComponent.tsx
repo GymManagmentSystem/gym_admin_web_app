@@ -48,9 +48,8 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
             <Tr key={person.memberId}>
               <Td>{person.memberId}</Td>
               <Td>{person.firstName+person.lastName}</Td>
-              {arrayType=="Member"?<Td>{person.contactNumber}</Td>:null}
+              <Td>{person.contactNumber}</Td>
               {arrayType=="Member"?<Td>{person.dateRegistered}</Td>:null}
-              {arrayType=="Staff"?<Td>{person.gender}</Td>:null}
               <Td>{person.gender}</Td>
               <Td>
                 <Button
