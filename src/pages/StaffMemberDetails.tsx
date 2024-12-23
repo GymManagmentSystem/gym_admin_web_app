@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
 import StaffEditableForm from "../components/StaffEditableForm";
+import useGetStaffMemberDetailsById from "../hooks/useGetStaffMemberDetailsById";
 
 
 const StaffMemberDetails = () => {
   const { id } = useParams(); //getting id from the routing parameters
+  const memberId=id?parseInt(id.substring(1),10):1
+  const {data:memberDetails,error,isLoading}=useGetStaffMemberDetailsById(memberId)
   const mainCardContainerWidth = {
     sm: "100%",
     md: "90%",
@@ -27,23 +30,9 @@ const StaffMemberDetails = () => {
     xl: "12%",
   };
 
-  const personData = {
-    firstName: "Nethupama",
-    lastName: "Shavinda",
-    email: "nethupama1234@gmail.com",
-    contactNumber: 772933688,
-    RegisterDate: "2020-04-22",
-    age: 24,
-    address: "Kaluthara,Colombo",
-    position: "Personal Trainer",
-    qualifications:"3 years as a senior trainer in Mount Lavania GYM."
-  };
 
-  const [memberData, setMemerData] = useState(personData);
-
-  useEffect(() => {
-    setMemerData(personData);
-  }, []);
+  if(error){return error}
+  if(isLoading){return isLoading}
 
   return (
     <>
@@ -96,7 +85,9 @@ const StaffMemberDetails = () => {
               variant="elevated"
             >
               <CardBody width="100%">
-                <StaffEditableForm staffDetails={memberData} />
+                {memberDetails && (
+                  <StaffEditableForm staffDetails={memberDetails} />
+                )}  
               </CardBody>
             </Card>
           </CardBody>
