@@ -36,7 +36,7 @@ const SchedulePage = () => {
           color="#F1B900"
           borderColor="#F1B900"
           _hover={{ backgroundColor: "#F1B900", textColor: "#fff" }}
-          onClick={()=>navigate(`/schedule/:${memberId}`)}
+          onClick={()=>navigate(`/app/schedule/:${memberId}`)}
         >
           View
         </Button>
@@ -47,6 +47,7 @@ const SchedulePage = () => {
           color="#F1B900"
           borderColor="#F1B900"
           _hover={{ backgroundColor: "#F1B900", textColor: "#fff" }}
+          onClick={()=>navigate("/app/schedule/addSchedule")}
         >
           Add 
         </Button>
