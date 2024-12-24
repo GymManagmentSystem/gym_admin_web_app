@@ -14,8 +14,10 @@ import TextArea from "../components/TextArea";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
+import { useNavigate, useParams } from "react-router-dom";
 
 const scheduleSchema = z.object({
+  memberId: z.number(),
   scheduleType: z
     .string()
     .min(1, { message: "Schedule Type Should be Filled" }),
@@ -45,6 +47,9 @@ const scheduleSchema = z.object({
 export type ScheduleFormData = z.infer<typeof scheduleSchema>;
 
 const AddNewSchedule = () => {
+
+  const {id}=useParams();
+  console.log(id);
   const {
     register,
     handleSubmit,
@@ -55,9 +60,12 @@ const AddNewSchedule = () => {
     resolver: zodResolver(scheduleSchema),
     defaultValues: {
       scheduleRegisteredDate: format(new Date(), "yyyy-MM-dd"),
-      scheduleDay2:"None"
+      scheduleDay2: "None",
+      memberId: id?parseInt(id.substring(1)):0,
     },
   });
+
+  const navigate=useNavigate();
 
   const scheduleDurationInWeek = watch("scheduleDays");
   const scheduleValidTime = watch("scheduleValidTime");
@@ -82,6 +90,7 @@ const AddNewSchedule = () => {
   const onsubmitFormData = (data: ScheduleFormData) => {
     console.log("button is pressed");
     console.log(data);
+    navigate("/app/schedule/addSchedule/addWorkout",{ state: data })
   };
 
   return (
@@ -139,9 +148,19 @@ const AddNewSchedule = () => {
                   <SimpleGrid
                     width="100%"
                     mt={2}
-                    gap={2}
+                    gap={5}
                     columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
                   >
+                    <TextInput
+                      textInputTitle="Member Id"
+                      name="memberId"
+                      register={register}
+                      errors={errors.memberId}
+                      inputType="number"
+                      formType="addForm"
+                      isEditEnabled={true}
+                    />
+
                     <SelectFeild
                       selectArray={["Arms", "Legs", "Chest", "Cardio"]}
                       textInputTitle="Schedule Type"

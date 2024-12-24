@@ -15,6 +15,7 @@ import ExercisePage from "./pages/ExercisePage";
 import AddExercisePage from "./pages/AddExercisePage";
 import Login from "./pages/Login";
 import AddNewSchedule from "./pages/AddNewSchedule";
+import AddWorkOut from "./pages/AddWorkOut";
 
 const routes = createBrowserRouter([
   {
@@ -35,7 +36,8 @@ const routes = createBrowserRouter([
       { path: "staff/:id", element: <StaffMemberDetails /> },
       { path: "staff/addStaffMember", element: <AddStaffMemberPage /> },
       { path: "schedule", element: <SchedulePage /> },
-      { path: "schedule/addSchedule", element:<AddNewSchedule/>},
+      { path: "schedule/addSchedule/:id", element:<AddNewSchedule/>},
+      {path:"schedule/addSchedule/addWorkout",element:<AddWorkOut/>},
       { path: "schedule/:id", element: <CurrentSchedulePage /> },
       {
         path: "schedule/historySchedule/:id",
