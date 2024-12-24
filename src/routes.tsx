@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 import Layout from "./pages/Layout";
 import HomeDashbord from "./pages/HomeDashbordPage";
 import MembersPage from "./pages/MembersPage";
@@ -14,6 +14,7 @@ import AddStaffMemberPage from "./pages/AddStaffMemberPage";
 import ExercisePage from "./pages/ExercisePage";
 import AddExercisePage from "./pages/AddExercisePage";
 import Login from "./pages/Login";
+import AddNewSchedule from "./pages/AddNewSchedule";
 
 const routes = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const routes = createBrowserRouter([
       { path: "staff/:id", element: <StaffMemberDetails /> },
       { path: "staff/addStaffMember", element: <AddStaffMemberPage /> },
       { path: "schedule", element: <SchedulePage /> },
+      { path: "schedule/addSchedule", element:<AddNewSchedule/>},
       { path: "schedule/:id", element: <CurrentSchedulePage /> },
       {
         path: "schedule/historySchedule/:id",

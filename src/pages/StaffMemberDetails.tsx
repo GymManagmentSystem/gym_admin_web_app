@@ -1,5 +1,4 @@
 import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 
@@ -31,8 +30,8 @@ const StaffMemberDetails = () => {
   };
 
 
-  if(error){return error}
-  if(isLoading){return isLoading}
+  // if(error){return error}
+  // if(isLoading){return isLoading}
 
   return (
     <>

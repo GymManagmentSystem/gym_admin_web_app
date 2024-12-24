@@ -3,10 +3,11 @@ import { MemberFormData } from "./MemberEditableForm"
 import { StaffFormData } from "./StaffEditableForm"
 import { Path,UseFormRegister,FieldError } from "react-hook-form"
 import { ExerciseFormData } from "../pages/AddExercisePage";
+import { ScheduleFormData } from "../pages/AddNewSchedule";
 
 
 interface TextAreaProps<
-  T extends MemberFormData | StaffFormData | ExerciseFormData
+  T extends MemberFormData | StaffFormData | ExerciseFormData |ScheduleFormData
 > {
   textInputTitle: string;
   name: Path<T>;
@@ -17,7 +18,7 @@ interface TextAreaProps<
 }
 
 const TextArea = <
-T extends MemberFormData | StaffFormData | ExerciseFormData
+T extends MemberFormData | StaffFormData | ExerciseFormData | ScheduleFormData
 >({
     textInputTitle,
     name,

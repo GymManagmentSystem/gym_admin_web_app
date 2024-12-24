@@ -9,10 +9,11 @@ import { MemberFormData } from "./MemberEditableForm";
 import { StaffFormData } from "./StaffEditableForm";
 import { PaymentFormData } from "../pages/AddPaymentPage";
 import { ExerciseFormData } from "../pages/AddExercisePage";
+import { ScheduleFormData } from "../pages/AddNewSchedule";
 
 
 interface TextInputProps<
-  T extends MemberFormData | StaffFormData | PaymentFormData | ExerciseFormData
+  T extends MemberFormData | StaffFormData | PaymentFormData | ExerciseFormData |ScheduleFormData
 > {
   textInputTitle: string;
   name: Path<T>;
@@ -27,7 +28,7 @@ interface TextInputProps<
 //in addForm we cannot controll disabel ness of the input feild
 
 const TextInput = <
-  T extends MemberFormData | StaffFormData | PaymentFormData | ExerciseFormData
+  T extends MemberFormData | StaffFormData | PaymentFormData | ExerciseFormData |ScheduleFormData
 >({
   textInputTitle,
   name,

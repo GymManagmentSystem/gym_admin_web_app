@@ -15,8 +15,8 @@ const ExercisePage = () => {
 
   const filterExercises=exercises?exercises.filter((exercise)=>exercise.exerciseName.includes(searchTerm)):exercises
 
-  if(error){return error}
-  if(isLoading){return isLoading}
+  // if(error){return error}
+  // if(isLoading){return isLoading}
   return (
     <Card
       backgroundColor="#fff"

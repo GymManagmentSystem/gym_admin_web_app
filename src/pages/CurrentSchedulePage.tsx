@@ -140,7 +140,7 @@ const CurrentSchedulePage = () => {
         padding={5}
         size={responsiveButtonSize}
         _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
-        onClick={()=>navigate(`/schedule/historySchedule/:${id?.slice(1)}`)}
+        onClick={()=>navigate(`/app/schedule/historySchedule/:${id?.slice(1)}`)}
       >
         View Schedule History
       </Button>

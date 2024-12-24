@@ -3,23 +3,26 @@ import { PaymentFormData } from "../pages/AddPaymentPage";
 import { Path, UseFormRegister, FieldError } from "react-hook-form";
 import { ExerciseFormData } from "../pages/AddExercisePage";
 import { StaffAddFormData } from "../pages/AddStaffMemberPage";
+import { ScheduleFormData } from "../pages/AddNewSchedule";
 
 
-interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFormData> {
+interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFormData |ScheduleFormData> {
   selectArray:string[]
   textInputTitle: string;
   name: Path<T>;
   register: UseFormRegister<T>;
   errors?: FieldError;
   formType: "editForm" | "addForm";
+  isDisable?:boolean
 }
 
-const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormData>({
+const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormData |ScheduleFormData>({
   textInputTitle,
   name,
   register,
   selectArray,
   errors,
+  isDisable
 }: SelectProps<T>) => {
   const responsiveSelectSize = { sm: "xs", md: "sm", lg: "lg", xl: "lg" };
   const responsiveLabelSize = { sm: "smaller", md: "md", lg: "lg", xl: "lg" };
@@ -35,6 +38,7 @@ const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormD
         _hover={{ borderColor: "#F1B900" }}
         width="100%"
         size={responsiveSelectSize}
+        isDisabled={isDisable}
       >
         {selectArray.map((selectOption) => (
           <option
