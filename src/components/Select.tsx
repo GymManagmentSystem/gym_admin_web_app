@@ -4,9 +4,11 @@ import { Path, UseFormRegister, FieldError } from "react-hook-form";
 import { ExerciseFormData } from "../pages/AddExercisePage";
 import { StaffAddFormData } from "../pages/AddStaffMemberPage";
 import { ScheduleFormData } from "../pages/AddNewSchedule";
+import { WorkOutFormData } from "../pages/AddWorkOut";
 
 
-interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFormData |ScheduleFormData> {
+
+interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFormData |ScheduleFormData |WorkOutFormData > {
   selectArray:string[]
   textInputTitle: string;
   name: Path<T>;
@@ -16,7 +18,7 @@ interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFor
   isDisable?:boolean
 }
 
-const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormData |ScheduleFormData>({
+const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormData |ScheduleFormData |WorkOutFormData>({
   textInputTitle,
   name,
   register,
