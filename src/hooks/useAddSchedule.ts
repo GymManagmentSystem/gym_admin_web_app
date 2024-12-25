@@ -1,8 +1,9 @@
 import { useMutation } from "@tanstack/react-query"
 import axios, { AxiosError } from "axios"
 
-interface Schedule{
+export interface Schedule{
     memberId:number,
+    scheduleId?:number,
     scheduleDay1:string,
     scheduleDay2?:string,
     scheduleDays:string,
@@ -13,7 +14,7 @@ interface Schedule{
     scheduleValidTime:number
 }
 
-interface Exercise{
+export interface Exercise{
     memberId?:number,
     duration?:number,
     exerciseName:string,
@@ -21,7 +22,7 @@ interface Exercise{
     sets?:number
 }
 
-interface ScheduleDetails{
+export interface ScheduleDetails{
     schedule:Schedule
     exerciseList:Exercise[]
 }
