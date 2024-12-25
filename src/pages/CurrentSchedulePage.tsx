@@ -10,7 +10,6 @@ import {
 
 import ScheduleExerciseTable from "../components/ScheduleExerciseTable";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
 import useGetCurrentSchedule from "../hooks/useGetCurrentSchedule";
 
 const CurrentSchedulePage = () => {
