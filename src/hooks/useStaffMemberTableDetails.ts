@@ -29,7 +29,7 @@ const useStaffMemberTableDetails=()=>{
             return data.dataList         
         }catch(e){
             if(e instanceof AxiosError){
-                const error=e.response?.data.errorMessage || "Request failed"
+                const error=((e.response?.data) as ErrorResponse).errorMessage || "Request failed"
                 throw new Error(error)
             }
             console.log(e)

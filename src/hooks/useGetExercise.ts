@@ -13,13 +13,13 @@ interface ErrorResponse{
 
 const useGetExercises=()=>{
 
-    const getPackageDetails=async()=>{
+    const getExerciseList=async()=>{
         try{
         const {data}=await axios.get<SuccessResponse>("http://localhost:8080/api/v1/exercises/")
         return data.dataList;
         }catch(e){
             if(e instanceof AxiosError){
-                const error=e.response?.data.errorMessage || "Request failed"
+                const error=((e.response?.data) as ErrorResponse).errorMessage || "Request failed"
                 throw new Error(error)
                         }
             console.log(e)
@@ -29,7 +29,7 @@ const useGetExercises=()=>{
 
     return useQuery<Exercise[],Error>({
         queryKey:["exerciseList"],
-        queryFn:getPackageDetails
+        queryFn:getExerciseList
     })
 
 }

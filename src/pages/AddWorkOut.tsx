@@ -10,21 +10,43 @@ import {
   Heading,
   HStack,
   SimpleGrid,
+  useToast,
 } from "@chakra-ui/react";
 import TextInput from "../components/TextInput";
 import SelectFeild from "../components/Select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {useState } from "react";
+import { useState } from "react";
 import ExerciseSetCard from "../components/ExerciseSetCard";
+import useGetExerciseNameList from "../hooks/useGetExerciseNameList";
+import useAddSchedule from "../hooks/useAddSchedule";
 
 const workoutSchema = z.object({
   exerciseName: z.string().min(1, { message: "Should select an exercise" }),
-  sets: z.number().nonnegative({message:"Sets must not be negative"}).optional(),
-  reps: z
-    .array(z.number().min(1, { message: "Reps must be greater than 0" }))
+  sets: z
+    .number()
+    .nonnegative({ message: "Sets must not be negative" })
     .optional(),
-  duration: z.number().nonnegative({message:"Sets must not be negative"}).optional(),
+  reps: z
+    .array(z.string().min(1, { message: "Reps must be greater than 0" }))
+    .optional(),
+  duration: z
+    .number()
+    .nonnegative({ message: "Sets must not be negative" })
+    .optional(),
+
 });
+
+
+//the updated interface is for storing the reps value as a string
+//reps values are stored as array of string
+//in db it is saved as string
+
+interface UpdatedWorkOutSchema{
+  exerciseName:string,
+  sets?:number,
+  reps?:string,
+  duration?:number
+}
 
 export type WorkOutFormData = z.infer<typeof workoutSchema>;
 
@@ -53,45 +75,46 @@ const AddWorkOut = () => {
     },
   });
 
+  const toast=useToast();
+
+  const {
+    data: exerciseDetailsList,
+    error,
+    isLoading,
+  } = useGetExerciseNameList();
+  console.log(exerciseDetailsList);
+
+  const addSchedule = useAddSchedule();
+
   const setCount = watch("sets") || 0;
   const selectedExerciseName = watch("exerciseName");
   let selectedExerciseType = "";
 
   const [addedExercisesList, setAddedExercisesList] = useState<
-    WorkOutFormData[]
+    UpdatedWorkOutSchema[]
   >([]);
 
   const location = useLocation();
   const scheduleData = location.state as ScheduleFormData;
-  const exerciseList = [
-    { exerciseName: "Latpull down", unit: "reps" },
-    { exerciseName: "Treadmill", unit: "Time" },
-    { exerciseName: "Bench Press", unit: "reps" },
-    { exerciseName: "Squats", unit: "reps" },
-    { exerciseName: "Deadlift", unit: "reps" },
-    { exerciseName: "Cycling", unit: "Time" },
-    { exerciseName: "Push-ups", unit: "reps" },
-    { exerciseName: "Plank", unit: "Time" },
-    { exerciseName: "Bicep Curls", unit: "reps" },
-    { exerciseName: "Running", unit: "Time" },
-  ];
-  const exerciseNameList = exerciseList.map(
-    (exercise) => exercise.exerciseName
-  );
 
-  if (selectedExerciseName && exerciseList) {
-    const selectedExercise = exerciseList.find(
+  if (selectedExerciseName && exerciseDetailsList) {
+    const selectedExercise = exerciseDetailsList.find(
       (exercise) => exercise.exerciseName === selectedExerciseName
     );
     if (selectedExercise) {
-      selectedExerciseType = selectedExercise.unit;
+      selectedExerciseType = selectedExercise.exerciseUnit;
     }
   }
 
   const onsubmitFormData = (data: WorkOutFormData) => {
-    console.log("button is called");
-    console.log(data);
-    setAddedExercisesList((prevState) => [...prevState, data]);
+
+    //this will convert  reps values in the formData array to a string
+
+    const transformedData: UpdatedWorkOutSchema = {
+      ...data,
+      reps: data.reps?.join("-") || "", // Convert to string if present, default to an empty string
+    };
+    setAddedExercisesList((prevState) => [...prevState, transformedData]);
     reset({ sets: 0, reps: [], duration: 0 });
   };
 
@@ -101,13 +124,48 @@ const AddWorkOut = () => {
     );
   };
 
-  const onSubmitScheduleData=()=>{
-    const schedulePayLoad={
-      schedule:scheduleData,
-      exerciseList:addedExercisesList
-    }
-    console.log("schedule details",schedulePayLoad);
-  }
+  const onSubmitScheduleData = () => {
+   
+    const schedulePayLoad = {
+      schedule: scheduleData,
+      exerciseList: addedExercisesList,
+    };
+
+    console.log(`schedule payload ${JSON.stringify(schedulePayLoad)}`)
+    addSchedule.mutate(schedulePayLoad,{
+      onSuccess: (data) => {
+        console.log(data);
+        toast({
+          title: "Schedule Added Successfully!",
+          description: "Schedule Added Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "yellow",
+        });
+      },
+
+      onError: (error) => {
+        console.log(
+          `error has been occured:${
+            error instanceof Error ? error.message : "unexpected error"
+          }`
+        );
+        toast({
+          title: "Error!",
+          description:
+            error instanceof Error ? error.message : "unexpected error",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "red",
+        });
+      },
+    });
+    console.log("schedule details", schedulePayLoad);
+  };
 
   return (
     <>
@@ -152,7 +210,13 @@ const AddWorkOut = () => {
                     columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
                   >
                     <SelectFeild
-                      selectArray={exerciseNameList}
+                      selectArray={
+                        exerciseDetailsList
+                          ? exerciseDetailsList.map(
+                              (exercise) => exercise.exerciseName
+                            )
+                          : []
+                      }
                       textInputTitle="Exercise Name"
                       name="exerciseName"
                       register={register}
@@ -160,7 +224,7 @@ const AddWorkOut = () => {
                       formType="addForm"
                     />
 
-                    {selectedExerciseType == "reps" ? (
+                    {selectedExerciseType == "Reps" ? (
                       <TextInput
                         textInputTitle="No:of Sets"
                         name="sets"
@@ -182,7 +246,7 @@ const AddWorkOut = () => {
                       />
                     ) : null}
 
-                    {selectedExerciseType == "reps" &&
+                    {selectedExerciseType == "Reps" &&
                       setCount > 0 &&
                       [...Array(setCount)].map((_, index) => (
                         <TextInput
@@ -191,7 +255,7 @@ const AddWorkOut = () => {
                           name={`reps.${index}`} // Dynamically assign field names
                           register={register}
                           errors={errors.reps?.[index]} // Handle errors for each rep field
-                          inputType="number"
+                          inputType="string"
                           formType="addForm"
                         />
                       ))}
@@ -239,20 +303,18 @@ const AddWorkOut = () => {
             >
               <CardBody width="100%">
                 <HStack justifyContent="flex-end">
-                <Button
-                  variant="outline"
-                  color="#F1B900"
-                  borderColor="#F1B900"
-                  padding={5}
-                  size={responsiveButtonSize}
-                  _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
-                  onClick={onSubmitScheduleData}
-                >
-                  Save Schedule
-                </Button>
-
+                  <Button
+                    variant="outline"
+                    color="#F1B900"
+                    borderColor="#F1B900"
+                    padding={5}
+                    size={responsiveButtonSize}
+                    _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
+                    onClick={onSubmitScheduleData}
+                  >
+                    Save Schedule
+                  </Button>
                 </HStack>
-               
               </CardBody>
             </Card>
           </CardBody>

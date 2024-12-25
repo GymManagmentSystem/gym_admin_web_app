@@ -24,14 +24,14 @@ interface ErrorResponse{
 
 
 const useEditMemberData = () => {
-    return useMutation<Member,AxiosError|ErrorResponse,Member>({
+    return useMutation<Member,Error,Member>({
         mutationFn:async(memberDetails:Member)=>{
             try{
                 const {data}=await axios.put<SuccessResponse>("http://localhost:8080/api/v1/members/",memberDetails);
                 return data.data
             }catch(e){
                 if(e instanceof AxiosError){
-                    const error=e.response?.data?.errorMessage || "Request Failed";
+                    const error=((e.response?.data) as ErrorResponse).errorMessage || "Request Failed";
                     console.log(e)
                     throw new Error(error)
                 }

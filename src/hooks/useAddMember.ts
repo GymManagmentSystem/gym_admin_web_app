@@ -30,14 +30,14 @@ interface ErrorResponse{
 
 const useAddMember=()=>{
 
-    return useMutation<savedMember,AxiosError|ErrorResponse,savedMember>({
+    return useMutation<savedMember,Error,savedMember>({
         mutationFn:async(memberData:savedMember)=>{
             try{
               const {data}=await axios.post<SuccessResponse>("http://localhost:8080/api/v1/members/",memberData)
               return data.data
         }catch(e){
             if(e instanceof AxiosError){
-                const error=e.response?.data?.errorMessage||"Request failed"
+                const error=((e.response?.data) as ErrorResponse).errorMessage||"Request failed"
                 console.log("catch error in catch block",error)
                 throw new Error(error);      
             }

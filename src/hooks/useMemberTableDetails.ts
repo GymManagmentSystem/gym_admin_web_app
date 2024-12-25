@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
 
 
 
@@ -19,23 +20,22 @@ interface ErrorResponse{
    errorMessage:string 
 }
 
-type Response=SuccessResponse | ErrorResponse
-
 
 const useMemeberTableDetails=()=>{
     const getMemberTableDetails=async()=>{
         try{
-            console.log(axios.defaults.headers.common.Authorization);
-            const {data}=await axios.get<Response>('http://localhost:8080/api/v1/members/') 
-            if('dataList' in data){
-                console.log(data.dataList);
-                return data.dataList;
-            }
-            else{
-                throw new Error(data.errorMessage)
-            }    
+            const {data}=await axios.get<SuccessResponse>('http://localhost:8080/api/v1/members/') 
+            console.log(data.dataList);
+            return data.dataList;
+               
         }catch(e){
-            throw new Error("Request failed")
+            if(e instanceof AxiosError){
+                const error=((e.response?.data) as ErrorResponse).errorMessage || "Request failed"
+                console.log("staff member ",error)
+                throw new Error(error)
+            }
+            console.log(e)
+            throw new Error("unexpected Error Occured")
         }
     }
     
