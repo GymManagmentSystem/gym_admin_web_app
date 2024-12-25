@@ -14,19 +14,16 @@ import {
 import TextInput from "../components/TextInput";
 import SelectFeild from "../components/Select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import {useState } from "react";
 import ExerciseSetCard from "../components/ExerciseSetCard";
-
-
 
 const workoutSchema = z.object({
   exerciseName: z.string().min(1, { message: "Should select an exercise" }),
-  exerciseRepitionUnit: z.string().optional(),
-  sets: z.number().optional(),
+  sets: z.number().nonnegative({message:"Sets must not be negative"}).optional(),
   reps: z
     .array(z.number().min(1, { message: "Reps must be greater than 0" }))
     .optional(),
-  duration: z.number().optional(),
+  duration: z.number().nonnegative({message:"Sets must not be negative"}).optional(),
 });
 
 export type WorkOutFormData = z.infer<typeof workoutSchema>;
@@ -92,10 +89,25 @@ const AddWorkOut = () => {
   }
 
   const onsubmitFormData = (data: WorkOutFormData) => {
-    console.log(data)
+    console.log("button is called");
+    console.log(data);
     setAddedExercisesList((prevState) => [...prevState, data]);
     reset({ sets: 0, reps: [], duration: 0 });
   };
+
+  const handleExericseDelete = (exerciseName: string) => {
+    setAddedExercisesList((prevList) =>
+      prevList.filter((exercise) => exercise.exerciseName !== exerciseName)
+    );
+  };
+
+  const onSubmitScheduleData=()=>{
+    const schedulePayLoad={
+      schedule:scheduleData,
+      exerciseList:addedExercisesList
+    }
+    console.log("schedule details",schedulePayLoad);
+  }
 
   return (
     <>
@@ -170,7 +182,8 @@ const AddWorkOut = () => {
                       />
                     ) : null}
 
-                    {setCount > 0 &&
+                    {selectedExerciseType == "reps" &&
+                      setCount > 0 &&
                       [...Array(setCount)].map((_, index) => (
                         <TextInput
                           key={`reps-${index}`} // Ensure unique keys
@@ -194,7 +207,7 @@ const AddWorkOut = () => {
                       _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
                       type="submit"
                     >
-                      Next
+                      Add Exercise
                     </Button>
                   </HStack>
                 </form>
@@ -207,7 +220,39 @@ const AddWorkOut = () => {
               variant="elevated"
             >
               <CardBody width="100%">
-                {addedExercisesList?(addedExercisesList.map((exercise)=>(<ExerciseSetCard exercise={exercise} key={exercise.exerciseName}/>))):null}
+                {addedExercisesList
+                  ? addedExercisesList.map((exercise) => (
+                      <ExerciseSetCard
+                        exercise={exercise}
+                        key={exercise.exerciseName}
+                        onDelete={handleExericseDelete}
+                      />
+                    ))
+                  : null}
+              </CardBody>
+            </Card>
+            <Card
+              height="auto"
+              width="100%"
+              backgroundColor="#fff"
+              variant="elevated"
+            >
+              <CardBody width="100%">
+                <HStack justifyContent="flex-end">
+                <Button
+                  variant="outline"
+                  color="#F1B900"
+                  borderColor="#F1B900"
+                  padding={5}
+                  size={responsiveButtonSize}
+                  _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
+                  onClick={onSubmitScheduleData}
+                >
+                  Save Schedule
+                </Button>
+
+                </HStack>
+               
               </CardBody>
             </Card>
           </CardBody>

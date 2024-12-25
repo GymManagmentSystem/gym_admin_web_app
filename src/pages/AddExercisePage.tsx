@@ -38,6 +38,7 @@ const exerciseSchema = z.object({
     message: "Exercise Description should have more than 03 characters",
   }),
   exerciseImageUrl: z.string().min(1, { message: "Enter an Image Url" }),
+  exerciseUnit: z.string().min(1, { message: "Select the Exercise Unit" }),
 });
 
 export type ExerciseFormData = z.infer<typeof exerciseSchema>;
@@ -197,11 +198,12 @@ const AddExercisePage = () => {
               formType="addForm"
             />
 
-            <TextArea
-              textInputTitle="Exercise Description"
-              name="exerciseDescription"
-              errors={errors.exerciseDescription}
+            <SelectFeild
+              textInputTitle="Exercise Unit"
+              name="exerciseUnit"
               register={register}
+              errors={errors.exerciseUnit}
+              selectArray={["Time","Reps"]}
               formType="addForm"
             />
 
@@ -211,6 +213,14 @@ const AddExercisePage = () => {
               register={register}
               errors={errors.exerciseImageUrl}
               inputType="string"
+              formType="addForm"
+            />
+
+            <TextArea
+              textInputTitle="Exercise Description"
+              name="exerciseDescription"
+              errors={errors.exerciseDescription}
+              register={register}
               formType="addForm"
             />
           </SimpleGrid>
