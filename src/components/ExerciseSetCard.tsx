@@ -3,7 +3,7 @@ import { Button, Card, CardBody, HStack, Text } from "@chakra-ui/react";
 interface ExerciseDetails {
   exerciseName: string;
   sets?: number;
-  reps?: number[];
+  reps?: string;
   duration?: number;
 }
 
@@ -40,7 +40,7 @@ const ExerciseSetCard = ({ exercise,onDelete }: Exercise) => {
             </HStack>
             <HStack justifyContent={"flex-start"} width="30%">
               <Text fontSize={{sm:"xx-small",md:"medium",lg:"large"}} color="#000">
-                {exercise.reps?.length == 0 ? " - " : exercise.reps?.join(", ")}
+                {exercise.reps?.length == 0 ? " - " : exercise.reps}
               </Text>
             </HStack>
             <HStack justifyContent={"flex-start"} width="15%">

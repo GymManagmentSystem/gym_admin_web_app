@@ -49,7 +49,7 @@ const useGetMemberDetailsById=(memberId:number)=>{
             return data.data
         }catch(e){
             if(e instanceof AxiosError){
-                const error=e.response?.data || "Request failed"
+                const error=((e.response?.data) as ErrorResponse).errorMessage || "Request failed"
                 console.log(error)
                 throw new Error(error)
             }

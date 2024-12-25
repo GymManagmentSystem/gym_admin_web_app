@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
 
 interface packageDetails{
     packageId:number,
@@ -18,23 +19,21 @@ interface ErrorResponse{
 }
 
 
-type PackageResponse=SuccessResponse | ErrorResponse
-
-
 const useGetPackageDetails=()=>{
 
     const getPackageDetails=async()=>{
         try{
-        const {data}=await axios.get<PackageResponse>("http://localhost:8080/api/v1/packages/")
-        if("dataList" in data){
+        const {data}=await axios.get<SuccessResponse>("http://localhost:8080/api/v1/packages/")
             console.log(data.dataList)
-            return data.dataList
-        }else{
-            throw new Error (data.errorMessage)
-        }
+            return data.dataList    
         }catch(e){
+            if(e instanceof AxiosError){
+                const error=((e.response?.data) as ErrorResponse).errorMessage || "Request failed"
+                console.log(error)
+                throw new Error(error)
+            }
             console.log(e)
-            throw new Error("Request failed");
+            throw new Error("unexpected Error Occured")
         }
     }
 
