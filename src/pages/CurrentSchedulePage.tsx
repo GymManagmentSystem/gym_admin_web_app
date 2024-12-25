@@ -11,86 +11,13 @@ import {
 import ScheduleExerciseTable from "../components/ScheduleExerciseTable";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import useGetCurrentSchedule from "../hooks/useGetCurrentSchedule";
 
 const CurrentSchedulePage = () => {
   const {id} = useParams();
-  console.log(id?.slice(1))
+  const memberId=id?parseInt(id.substring(1)):0
   const navigate=useNavigate();
-  const currentSchedule = [
-    {
-      scheduleNo: 1,
-      scheduleType: "Legs",
-      schedule: [
-        {
-          exerciseName: "Back Squat",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Front Squat",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Bulgarian Split Squat",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Leg Press",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Hack Squat",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Romanian Deadlift",
-          reps: "4",
-          sets: "10",
-        },
-      ],
-    },
-    {
-      scheduleNo: 2,
-      scheduleType: "Chests",
-      schedule: [
-        {
-          exerciseName: "Barbell Bench Press",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Dumbbell Bench Press",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Incline Bench Press",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Decline Press",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Machine Chest Press",
-          reps: "4",
-          sets: "10",
-        },
-        {
-          exerciseName: "Push-Up",
-          reps: "4",
-          sets: "10",
-        },
-      ],
-    },
-  ];
-  const [currentSchdeule, setCurrentSchedule] = useState(currentSchedule);
+  const {data:currentScheduleList,error,isLoading}=useGetCurrentSchedule(memberId);
   const responsiveCardWidth = { sm: "100%", md: "100%", lg: "100%" };
   const responsiveFontSize = { sm: "sm", md: "sm", lg: "md", xl: "md" };
   const responsiveButtonSize = { sm: "md", md: "md", lg: "lg", xl: "lg" };
@@ -117,19 +44,16 @@ const CurrentSchedulePage = () => {
         }}
       >
         <CardBody>
-          <HStack justifyContent="flex-start">
-            {/* <Text color="#000" size={responsiveFontSize} fontWeight="600">Member Id : 1011</Text> */}
-            <Heading color="#000" size={responsiveFontSize} fontWeight="600">
-              Member Name : Kasun Rajitha
-            </Heading>
-          </HStack>
+          
           <HStack justifyContent="flex-start" mt={5}>
             <Heading color="#000" size={responsiveFontSize} fontWeight="600">
               Current Schedule
             </Heading>
           </HStack>
           <VStack alignItems="flex-start" mt={2} justifyContent="center">
-            <ScheduleExerciseTable scheduleArray={currentSchdeule} />
+            {currentScheduleList && (
+              <ScheduleExerciseTable scheduleArray={currentScheduleList} />
+            )}
           </VStack>
         </CardBody>
       </Card>
@@ -140,7 +64,7 @@ const CurrentSchedulePage = () => {
         padding={5}
         size={responsiveButtonSize}
         _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
-        onClick={()=>navigate(`/app/schedule/historySchedule/:${id?.slice(1)}`)}
+        onClick={()=>navigate(`/app/schedule/historySchedule/:${memberId}`)}
       >
         View Schedule History
       </Button>

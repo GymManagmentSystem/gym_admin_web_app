@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ScheduleFormData } from "./AddNewSchedule";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -76,6 +76,7 @@ const AddWorkOut = () => {
   });
 
   const toast=useToast();
+  const navigate=useNavigate()
 
   const {
     data: exerciseDetailsList,
@@ -144,6 +145,7 @@ const AddWorkOut = () => {
           position: "top-right",
           colorScheme: "yellow",
         });
+        navigate("/app/schedule")
       },
 
       onError: (error) => {
