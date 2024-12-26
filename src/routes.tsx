@@ -1,4 +1,4 @@
-import { createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Layout from "./pages/Layout";
 import HomeDashbord from "./pages/HomeDashbordPage";
 import MembersPage from "./pages/MembersPage";
@@ -16,6 +16,8 @@ import AddExercisePage from "./pages/AddExercisePage";
 import Login from "./pages/Login";
 import AddNewSchedule from "./pages/AddNewSchedule";
 import AddWorkOut from "./pages/AddWorkOut";
+import PackagesPage from "./pages/PackagesPage";
+import AddPackagePage from "./pages/AddPackagePage";
 
 const routes = createBrowserRouter([
   {
@@ -36,8 +38,8 @@ const routes = createBrowserRouter([
       { path: "staff/:id", element: <StaffMemberDetails /> },
       { path: "staff/addStaffMember", element: <AddStaffMemberPage /> },
       { path: "schedule", element: <SchedulePage /> },
-      { path: "schedule/addSchedule/:id", element:<AddNewSchedule/>},
-      {path:"schedule/addSchedule/addWorkout",element:<AddWorkOut/>},
+      { path: "schedule/addSchedule/:id", element: <AddNewSchedule /> },
+      { path: "schedule/addSchedule/addWorkout", element: <AddWorkOut /> },
       { path: "schedule/:id", element: <CurrentSchedulePage /> },
       {
         path: "schedule/historySchedule/:id",
@@ -46,6 +48,9 @@ const routes = createBrowserRouter([
       { path: "addPayment/:id", element: <AddPaymentPage /> },
       { path: "exercises", element: <ExercisePage /> },
       { path: "exercises/addExercise", element: <AddExercisePage /> },
+
+      { path: "packages", element: <PackagesPage /> },
+      { path: "packages/addPackage", element: <AddPackagePage /> }
     ],
   },
 ]);
