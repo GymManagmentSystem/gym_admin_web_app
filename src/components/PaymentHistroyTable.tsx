@@ -14,23 +14,23 @@ interface PyamentHistoryTableProps {
 }
 
 const PaymentHistroyTable = ({ paymentDetails }: PyamentHistoryTableProps) => {
-  const tableResponsiveSize = { sm: "sm", md: "sm", lg: "sm", xl: "sm" };
+  const tableResponsiveSize = { sm:"sm", md: "sm", lg: "sm", xl: "sm" };
   return (
     <TableContainer>
       <Table size={tableResponsiveSize}>
         <Thead backgroundColor="#FFECB0">
           <Tr fontSize={{ sm: "0.3rem", md: "3rem" }}>
             <Th color="#000">Package Type</Th>
-            <Th color="#000" display={{ base: "none", xl: "table-cell" }}>
+            <Th color="#000" >
               Payment Time
             </Th>
-            <Th color="#000" display={{ base: "none", xl: "table-cell" }}>
+            <Th color="#000" >
               Payment Date
             </Th>
-            <Th color="#000" display={{ base: "none", xl: "table-cell" }}>
+            <Th color="#000" >
               Validity
             </Th>
-            <Th color="#000" display={{ base: "none", xl: "table-cell" }}>
+            <Th color="#000" >
               Expire Date
             </Th>
           </Tr>
@@ -39,16 +39,16 @@ const PaymentHistroyTable = ({ paymentDetails }: PyamentHistoryTableProps) => {
           {paymentDetails.map((payment, index) => (
             <Tr key={index}>
               <Td>{payment.packageType}</Td>
-              <Td display={{ base: "none", xl: "table-cell" }}>
+              <Td >
                 {payment.paymentTime}
               </Td>
-              <Td display={{ base: "none", xl: "table-cell" }}>
+              <Td >
                 {payment.paymentDate}
               </Td>
-              <Td display={{ base: "none", xl: "table-cell" }}>
+              <Td >
                 {payment.validity==true?"yes":"no"}
               </Td>
-              <Td display={{ base: "none", xl: "table-cell" }}>
+              <Td >
                 {payment.expirayDate}
               </Td>
             </Tr>

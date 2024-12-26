@@ -26,7 +26,7 @@ interface TableComponent {
 }
 
 const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: TableComponent) => {
-  const tableResponsiveSize = { md: "sm", lg: "sm", xl: "md" };
+  const tableResponsiveSize = { sm:"sm",md: "sm", lg: "sm", xl: "md" };
   const butonResponsiveSize = {md: "xs", lg: "sm", xl: "md" };
   
   return (
