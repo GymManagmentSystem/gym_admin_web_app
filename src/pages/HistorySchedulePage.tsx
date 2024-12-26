@@ -35,12 +35,6 @@ const HistorySchedulePage = () => {
         }}
       >
         <CardBody>
-          <HStack justifyContent="flex-start">
-            {/* <Text color="#000" size={responsiveFontSize} fontWeight="600">Member Id : 1011</Text> */}
-            <Heading color="#000" size={responsiveFontSize} fontWeight="600">
-              Member Name : Kasun Rajitha
-            </Heading>
-          </HStack>
           <HStack justifyContent="flex-start" mt={5}>
             <Heading color="#000" size={responsiveFontSize} fontWeight="600">
               Schedule History

@@ -35,7 +35,7 @@ const SideBar = () => {
         title="Annoncement"
         path="/app"
       />
-      <SideBarLink imageSrc={pricingLogo} title="Pricing" path="/app" />
+      <SideBarLink imageSrc={pricingLogo} title="Packages" path="/app" />
       <SideBarLink imageSrc={chatLogo} title="Chats" path="/app" />
       <SideBarLink imageSrc={logOutLogo} title="Log Out" path="/app" />
     </VStack>

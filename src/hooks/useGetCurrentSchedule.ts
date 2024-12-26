@@ -13,7 +13,7 @@ interface ErrorResponse{
 
 
 const useGetCurrentSchedule=(memberId:number)=>{
-
+    console.log("member id",memberId);
     const getCurrentSchedule=async()=>{
         try{
         const {data}=await axios.get<SuccessResponse>(`http://localhost:8080/api/v1/schedules/current/${memberId}`)
