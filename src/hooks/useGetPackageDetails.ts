@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
 
-interface packageDetails{
+export interface PackageDetails{
     packageId:number,
     packageName:string,
     packageDescription:string,
@@ -11,7 +11,7 @@ interface packageDetails{
 }
 
 interface SuccessResponse{
-    dataList:packageDetails[]
+    dataList:PackageDetails[]
 }
 
 interface ErrorResponse{
@@ -37,7 +37,7 @@ const useGetPackageDetails=()=>{
         }
     }
 
-    return useQuery<packageDetails[],Error>({
+    return useQuery<PackageDetails[],Error>({
         queryKey:["packagesList"],
         queryFn:getPackageDetails
     })

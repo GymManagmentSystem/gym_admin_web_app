@@ -1,7 +1,10 @@
-import { Heading, HStack } from "@chakra-ui/react";
+import { Box, Heading, HStack } from "@chakra-ui/react";
 import PackageTable from "../components/PackageTable";
+import useGetPackageDetails from "../hooks/useGetPackageDetails";
+Box;
 
 const PackagesPage = () => {
+  const { data: packageList, error, isLoading } = useGetPackageDetails();
   return (
     <>
       <HStack>
@@ -9,7 +12,7 @@ const PackagesPage = () => {
           Package Details
         </Heading>
       </HStack>
-      <PackageTable/>
+      <Box mt={10}>{packageList && <PackageTable packageList={packageList} />}</Box>
     </>
   );
 };

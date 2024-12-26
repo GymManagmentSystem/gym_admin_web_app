@@ -1,12 +1,5 @@
 import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
-
-
-interface PackageDetails{
-    packageName:string,
-    packageAmount:number,
-    packageValidTime:number,
-    packageDescription:string
-}
+import { PackageDetails } from "../hooks/useGetPackageDetails";
 
 
 interface PackageTableProps{
