@@ -12,6 +12,7 @@ interface savedMember{
     weight:number,
     height:number,
     gender:string,
+    paymentAmount:number,
     packageType:string,
     paymentDate:string,
     paymentTime:string,
