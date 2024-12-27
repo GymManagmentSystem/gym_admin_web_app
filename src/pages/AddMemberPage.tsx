@@ -73,7 +73,7 @@ const AddMemberPage = () => {
                 name="contactNumber"
                 register={register}
                 errors={errors.contactNumber}
-                inputType="number"
+                inputType="string"
                 formType="addForm"
               />
               <TextInput

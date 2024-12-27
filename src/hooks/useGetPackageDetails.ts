@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 
 
 export interface PackageDetails{
-    packageId:number,
+    packageId?:number,
     packageName:string,
     packageDescription:string,
     packageValidTime:number,

@@ -9,57 +9,25 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { PackageCount,Income } from "../hooks/useGetDashBordData";
 
 
 interface MembersLineChartProps{
     title:string,
     month:string,
     value:number
+    dataList:PackageCount[] | Income[]
 }
 
-const MembersLineChart = ({title,month,value}:MembersLineChartProps) => {
+const MembersLineChart = ({title,month,value,dataList}:MembersLineChartProps) => {
   const titleFontSize={sm:"1rem",md:"1.5rem",lg:"1.5rem",xl:"1.5rem"}
   const valueFontSize={sm:"1.1rem",md:"1.5rem",lg:"1.5rem",xl:"1.5rem"}
   const monthFontSize={sm:"1rem",md:"1.5rem",lg:"1.5rem",xl:"1.5rem"}
   const cardHeight={ sm:"95%",md: "95%", lg: "60%" }
   const cardWidth={ sm:"100%",md: "100%", lg: "95%" }
-  const data = [
-    {
-      name: "Page A",
-      uv: 4000,
-      amt: 2400,
-    },
-    {
-      name: "Page B",
-      uv: 3000,
-      amt: 2210,
-    },
-    {
-      name: "Page C",
-      uv: 2000,
-      amt: 2290,
-    },
-    {
-      name: "Page D",
-      uv: 2780,
-      amt: 2000,
-    },
-    {
-      name: "Page E",
-      uv: 1890,
-      amt: 2181,
-    },
-    {
-      name: "Page F",
-      uv: 2390,
-      amt: 2500,
-    },
-    {
-      name: "Page G",
-      uv: 3490,
-      amt: 2100,
-    },
-  ];
+
+  const yAxisDataKey="amount" in dataList[0]?"amount":"memberCount";
+  
   return (
     <Card
       backgroundColor="#fff"
@@ -89,13 +57,13 @@ const MembersLineChart = ({title,month,value}:MembersLineChartProps) => {
       </HStack>
 
       <ResponsiveContainer width="100%" height="80%">
-        <LineChart data={data}>
+        <LineChart data={dataList}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="uv" stroke="#F1B900" />
+          <Line type="monotone" dataKey={yAxisDataKey} stroke="#F1B900" />
         </LineChart>
       </ResponsiveContainer>
     </Card>

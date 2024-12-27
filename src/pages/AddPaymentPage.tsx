@@ -24,7 +24,7 @@ import { useQueryClient } from "@tanstack/react-query";
 const paymentSchema = z.object({
   memberName: z.string(),
   packageType: z.string().min(1),
-  packageAmount: z.number({
+  paymentAmount: z.number({
     required_error: "Package Amount is required",
     invalid_type_error: "Package Amount must be a number",
   }),
@@ -60,7 +60,7 @@ const AddPaymentPage = () => {
       memberName: `${memberData.firstName}`,
       paymentDate: format(new Date(), "yyyy-MM-dd"),
       paymentTime: format(new Date(), "HH:mm:ss"),
-      packageAmount: undefined,
+      paymentAmount: 0,
       packageType: "",
     },
     resolver: zodResolver(paymentSchema),
@@ -76,11 +76,12 @@ const AddPaymentPage = () => {
       ...nameUpdatedMemberDate,
       paymentDate: data.paymentDate,
       paymentTime: data.paymentTime,
-      packageAmount: data.packageAmount,
+      paymentAmount: data.paymentAmount,
       packageType: data.packageType,
       validity: true,
       expirayDate: data.expirayDate,
     };
+    console.log("payload :", updatedMemberData);
 
     addMember.mutate(updatedMemberData, {
       onSuccess: (data) => {
@@ -134,7 +135,7 @@ const AddPaymentPage = () => {
       );
       const formattedExpiryDate = format(expiryDate, "yyyy-MM-dd");
       setValue("expirayDate", formattedExpiryDate);
-      setValue("packageAmount", selectedPackage.packageAmount);
+      setValue("paymentAmount", selectedPackage.packageAmount);
     }
   }
 
@@ -199,9 +200,9 @@ const AddPaymentPage = () => {
 
             <TextInput
               textInputTitle="Package Amount"
-              name="packageAmount"
+              name="paymentAmount"
               register={register}
-              errors={errors.packageAmount}
+              errors={errors.paymentAmount}
               inputType="number"
               formType="addForm"
             />

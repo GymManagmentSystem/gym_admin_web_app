@@ -8,7 +8,7 @@ interface TopHomeCardProps {
   children:ReactNode,  
   title1: string;
   title2:string;
-  count: string;
+  count: number;
 }
 
 const TopHomeCard = ({children,title1,title2,count}:TopHomeCardProps) => {

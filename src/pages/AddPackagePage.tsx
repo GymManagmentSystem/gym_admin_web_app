@@ -1,10 +1,19 @@
-import { Button, Card, Heading, HStack, SimpleGrid } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  Heading,
+  HStack,
+  SimpleGrid,
+  useToast,
+} from "@chakra-ui/react";
 import TextInput from "../components/TextInput";
 import TextArea from "../components/TextArea";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import useAddPackage from "../hooks/useAddPackage";
+import { useQueryClient } from "@tanstack/react-query";
 
 const packageSchema = z.object({
   packageName: z.string().min(1, { message: "Package Name required" }),
@@ -22,6 +31,11 @@ const packageSchema = z.object({
 export type PackageFormDta = z.infer<typeof packageSchema>;
 
 const AddPackagePage = () => {
+  const addNewPackage = useAddPackage();
+  const toast = useToast();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const {
     register,
     handleSubmit,
@@ -31,11 +45,36 @@ const AddPackagePage = () => {
   });
 
   const onSubmitPackageFormData = (data: PackageFormDta) => {
+    addNewPackage.mutate(data, {
+      onSuccess: (data) => {
+        toast({
+          title: "Successfull!",
+          description: "Package Added Successfully",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "yellow",
+        });
+        queryClient.invalidateQueries(["packageList"]);
+      },
+      onError: (error) => {
+        toast({
+          title: "Error!",
+          description:
+            error instanceof Error ? error.message : "unexpected error",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "red",
+        });
+      },
+    });
     console.log(data);
   };
-  
 
-  const navigation=useNavigate()
+  const navigation = useNavigate();
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
 
   return (
