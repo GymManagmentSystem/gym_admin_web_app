@@ -65,7 +65,7 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
   const buttonSizes = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
   const editMemberForm = useEditMemberData();
   const toast = useToast();
-  const queryClient=useQueryClient()
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -80,6 +80,8 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
     setEditEnabled(false);
     editMemberForm.mutate(data, {
       onSuccess: (data) => {
+        queryClient.invalidateQueries(["singleMemberDetails", data.memberId]);
+        queryClient.invalidateQueries(["memberTableDetails"]);
         toast({
           title: "User Upadted Successfully!",
           description: "User Updated Successfully",
@@ -89,7 +91,6 @@ const MemberEditableForm = ({ memberDetails }: MemberEditableFormProps) => {
           position: "top-right",
           colorScheme: "yellow",
         });
-        queryClient.invalidateQueries(["memberTableDetails"]);
       },
       onError: (error) => {
         toast({

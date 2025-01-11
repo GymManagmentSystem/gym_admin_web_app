@@ -7,7 +7,7 @@ interface PackageTableProps{
 }
 
 const PackageTable = ({packageList}:PackageTableProps) => {
-    const tableResponsiveSize = { sm:"sm", md: "sm", lg: "sm", xl: "sm" };
+    const tableResponsiveSize = { sm:"sm", md: "sm", lg: "md", xl: "md" };
   return (
      <TableContainer>
           <Table size={tableResponsiveSize}>

@@ -37,13 +37,13 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
         >
           <Tr borderBottomColor="#F1B900">
             {thArray.map((thName, index) => (
-              <Th key={index} color="#000" fontSize={{sm:"0.5rem",md:"initial"}}>
+              <Th key={index} color="#000"  fontSize={{sm:"xs",md:"xs",lg:"md"}}>
                 {thName}
               </Th>
             ))}
           </Tr>
         </Thead>
-        <Tbody color="#000" borderBottomColor="#F1B900" fontSize={{sm:"0.5rem",md:"initial"}}>
+        <Tbody color="#000" borderBottomColor="#F1B900" fontSize={{sm:"xs",md:"xs",lg:"md"}}>
           {personArray.map((person) => (
             <Tr key={person.memberId}>
               <Td>{person.memberId}</Td>
@@ -58,6 +58,7 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
                   size={butonResponsiveSize}
                   onClick={()=>onPressViewButton(person.memberId)}
                   _hover={{textColor:"#000"}}
+                  fontSize={butonResponsiveSize}
                   
                 >
                   View More
