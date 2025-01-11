@@ -39,18 +39,19 @@ const PaymentTable = ({
           </Tr>
         </Thead>
         <Tbody color="#000" borderBottomColor="#F1B900">
-          {paymentDetails.map((payment, index) => (
+          {paymentDetails.map((payment) => (
             <Tr
               key={payment.paymentId}
-              backgroundColor={
-                new Date(payment.expirayDate) < new Date() ? "red" : "fff"
-              }
+              color={new Date(payment.expirayDate) < new Date() ? "red" : "fff"}
+              // backgroundColor={
+              //   new Date(payment.expirayDate) < new Date() ? "#fc5644" : "fff"
+              // }
             >
               <Td>{payment.memberId}</Td>
               <Td>{payment.packageType}</Td>
               <Td>{payment.paymentTime}</Td>
               <Td>{payment.paymentDate}</Td>
-              <Td>{payment.validity == true ? "yes" : "no"}</Td>
+              <Td>{new Date(payment.expirayDate) < new Date()? "Expired" : "Valid"}</Td>
               <Td>{payment.expirayDate}</Td>
               {tableType == "current" && (
                 <Td>
