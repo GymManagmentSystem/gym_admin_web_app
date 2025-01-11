@@ -12,7 +12,17 @@ const PackagesPage = () => {
           Package Details
         </Heading>
       </HStack>
-      <Box mt={10}>{packageList && <PackageTable packageList={packageList} />}</Box>
+      <Box
+        mt={10}
+        sx={{
+          scrollbarWidth: "none", // For Firefox
+          "&::-webkit-scrollbar": {
+            display: "none", // For Chrome, Safari, and Edge
+          },
+        }}
+      >
+        {packageList && <PackageTable packageList={packageList} />}
+      </Box>
     </>
   );
 };
