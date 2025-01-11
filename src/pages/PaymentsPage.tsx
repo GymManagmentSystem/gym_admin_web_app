@@ -13,7 +13,18 @@ const PaymentsPage = () => {
 
   return (
     <>
-      <Box overflow="auto" width="100%" height="100%" p={5}>
+      <Box
+        overflow="auto"
+        width="100%"
+        height="100%"
+        p={5}
+        sx={{
+          scrollbarWidth: "none", // For Firefox
+          "&::-webkit-scrollbar": {
+            display: "none", // For Chrome, Safari, and Edge
+          },
+        }}
+      >
         <HStack>
           <Heading color="#000" size={{ sm: "md", md: "lg", xl: "xl" }}>
             Payment Details

@@ -31,7 +31,17 @@ const MembersPage = () => {
 
   return (
     <>
-      <Box overflow="auto" width="100%" height="100%">
+      <Box
+        overflow="auto"
+        width="100%"
+        height="100%"
+        sx={{
+          scrollbarWidth: "none", // For Firefox
+          "&::-webkit-scrollbar": {
+            display: "none", // For Chrome, Safari, and Edge
+          },
+        }}
+      >
         <SearchHeadingBar
           buttonPressed={buttonPress}
           heading="All Members"
