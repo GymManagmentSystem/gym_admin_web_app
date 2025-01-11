@@ -13,13 +13,15 @@ import TextInput from "../components/TextInput";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { MemberFormData } from "../components/MemberEditableForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SelectFeild from "../components/Select";
 import useGetPackageDetails from "../hooks/useGetPackageDetails";
 import useAddMember from "../hooks/useAddMember";
 import { useQueryClient } from "@tanstack/react-query";
+import useAddPayments from "../hooks/useAddPayments";
+
 
 const paymentSchema = z.object({
   memberName: z.string(),
@@ -45,7 +47,11 @@ const AddPaymentPage = () => {
   const { data: packagesList, error, isLoading } = useGetPackageDetails();
   const location = useLocation();
   const memberData = location.state as MemberFormData;
+  const { id } = useParams(); //getting id from the routing parameters
+  const memberId = id ? parseInt(id.substring(1), 10) : 0;
   const addMember = useAddMember();
+  const addPayment = useAddPayments(memberId);
+  
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -68,56 +74,100 @@ const AddPaymentPage = () => {
 
   //handlinn submitted data
   const onsubmitPaymentForm = (data: PaymentFormData) => {
-    const nameUpdatedMemberDate = {
-      ...memberData,
-      firstName: data.memberName,
-    };
-    const updatedMemberData = {
-      ...nameUpdatedMemberDate,
-      paymentDate: data.paymentDate,
-      paymentTime: data.paymentTime,
-      paymentAmount: data.paymentAmount,
-      packageType: data.packageType,
-      validity: true,
-      expirayDate: data.expirayDate,
-    };
-    console.log("payload :", updatedMemberData);
+    if (data.packageType == "membership") {
+      const nameUpdatedMemberDate = {
+        ...memberData,
+        firstName: data.memberName,
+      };
+      const updatedMemberData = {
+        ...nameUpdatedMemberDate,
+        paymentDate: data.paymentDate,
+        paymentTime: data.paymentTime,
+        paymentAmount: data.paymentAmount,
+        packageType: data.packageType,
+        validity: true,
+        expirayDate: data.expirayDate,
+      };
 
-    addMember.mutate(updatedMemberData, {
-      onSuccess: (data) => {
-        console.log(data);
-        toast({
-          title: "User Added Successful!",
-          description: "User Added Successfully",
-          status: "success",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-          colorScheme: "yellow",
-        });
-        queryClient.invalidateQueries(["memberTableDetails"]);
-        navigate("/app/dashbord");
-      },
+      addMember.mutate(updatedMemberData, {
+        onSuccess: (data) => {
+          console.log(data);
+          toast({
+            title: "User Added Successful!",
+            description: "User Added Successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "yellow",
+          });
+          queryClient.invalidateQueries(["memberTableDetails"]);
+          navigate("/app/dashbord");
+        },
 
-      onError: (error) => {
-        console.log(
-          `error has been occured:${
-            error instanceof Error ? error.message : "unexpected error"
-          }`
-        );
-        toast({
-          title: "Error!",
-          description:
-            error instanceof Error ? error.message : "unexpected error",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-          colorScheme: "red",
-        });
-      },
-    });
-    console.log(updatedMemberData);
+        onError: (error) => {
+          console.log(
+            `error has been occured:${
+              error instanceof Error ? error.message : "unexpected error"
+            }`
+          );
+          toast({
+            title: "Error!",
+            description:
+              error instanceof Error ? error.message : "unexpected error",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "red",
+          });
+        },
+      });
+    } else {
+      const paymentData = {
+        memberId: memberData.memberId,
+        paymentDate: data.paymentDate,
+        paymentTime: data.paymentTime,
+        paymentAmount: data.paymentAmount,
+        packageType: data.packageType,
+        validity: true,
+        expirayDate: data.expirayDate,
+      };
+
+      addPayment.mutate(paymentData, {
+        onSuccess: (data) => {
+          toast({
+            title: "Payment Successful!",
+            description: "Payment Done Successfully",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "yellow",
+          });
+          queryClient.invalidateQueries(["paymentHistoryList", data.memberId]);
+          navigate("/app/dashbord");
+        },
+
+        onError: (error) => {
+          console.log(
+            `error has been occured:${
+              error instanceof Error ? error.message : "unexpected error"
+            }`
+          );
+          toast({
+            title: "Error!",
+            description:
+              error instanceof Error ? error.message : "unexpected error",
+            status: "error",
+            duration: 3000,
+            isClosable: true,
+            position: "top-right",
+            colorScheme: "red",
+          });
+        },
+      });
+    }
   };
 
   //keep the track of the changes done to packageType and change packageAmount and Expiaray date According to that

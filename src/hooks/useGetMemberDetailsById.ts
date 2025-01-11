@@ -15,19 +15,10 @@ interface MemberDetails{
     height:number
 }
 
-export interface PaymentDetails{
-    paymentId:number,
-    memberId:number,
-    packageType:string,
-    paymentDate:string,
-    paymentTime:string,
-    validity:boolean,
-    expirayDate:string
-}
+
 
 interface Details{
-    member:MemberDetails,
-    payments:PaymentDetails[]   
+    member:MemberDetails,  
 }
 
 interface SuccessResponse{
@@ -45,7 +36,6 @@ const useGetMemberDetailsById=(memberId:number)=>{
         console.log("member id :",memberId);
         try{
             const {data}=await axios.get<SuccessResponse>(`http://localhost:8080/api/v1/members/${memberId}`)
-            console.log(data.data.payments[0].validity)
             return data.data
         }catch(e){
             if(e instanceof AxiosError){

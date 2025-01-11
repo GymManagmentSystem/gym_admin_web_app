@@ -13,7 +13,7 @@ const Layout = () => {
         templateAreas={`"header header"
                           "sideBar main"
                           "footer footer"`}
-        templateColumns={{sm:"150px 1fr",md: "192px 1fr", lg: "285px 1fr",xl:"285px 1fr" }}
+        templateColumns={{sm:"150px 1fr",md: "192px 1fr", lg: "285px 1fr",xl:"250px 1fr" }}
         templateRows={"95px 1fr 39px"}
         w="100%"
         h="100vh"

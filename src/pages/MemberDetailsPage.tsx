@@ -1,13 +1,13 @@
-import { Box, Card, CardBody, Heading } from "@chakra-ui/react";
-import { useParams } from "react-router-dom";
+import { Box, Button, Card, CardBody, Heading, HStack } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import MemberEditableForm from "../components/MemberEditableForm";
-import PaymentHistroyTable from "../components/PaymentHistroyTable";
 import useGetMemberDetailsById from "../hooks/useGetMemberDetailsById";
 
 const MemberDetailsPage = () => {
   const { id } = useParams(); //getting id from the routing parameters
-  const memberId=id?parseInt(id.substring(1),10):1
+  const memberId = id ? parseInt(id.substring(1), 10) : 0;
+  console.log("member is",memberId)
   const mainCardContainerWidth = {
     sm: "100%",
     md: "90%",
@@ -27,11 +27,15 @@ const MemberDetailsPage = () => {
     xl: "70px",
   };
 
+  const responsiveButtonSize = { sm: "md", md: "md", lg: "lg", xl: "lg" };
+
   const {
     data: singleMemberDetails,
     error,
     isLoading,
   } = useGetMemberDetailsById(memberId);
+
+  const navigate=useNavigate();
 
   if (isLoading) {
     return <Heading>Loading.......</Heading>;
@@ -66,8 +70,12 @@ const MemberDetailsPage = () => {
                 justifyContent="space-between"
               >
                 <Box display="flex" flexDirection="column" alignItems="center">
-                  {singleMemberDetails?.member &&(
-                    <Heading size={{ sm: "sm", md: "md" }}>{singleMemberDetails.member.firstName+" "+singleMemberDetails.member.lastName}</Heading>
+                  {singleMemberDetails?.member && (
+                    <Heading size={{ sm: "sm", md: "md" }}>
+                      {singleMemberDetails.member.firstName +
+                        " " +
+                        singleMemberDetails.member.lastName}
+                    </Heading>
                   )}
                   <Box
                     as={CgProfile}
@@ -105,6 +113,7 @@ const MemberDetailsPage = () => {
                 )}
               </CardBody>
             </Card>
+
             <Card
               height="auto"
               width="80%"
@@ -113,19 +122,36 @@ const MemberDetailsPage = () => {
               mt={2}
             >
               <CardBody width="100%">
-                <Heading
-                  color="#000"
-                  mt={2}
-                  mb={5}
-                  size={{ sm: "sm", md: "md" }}
-                >
-                  Payment Details
-                </Heading>
-                {singleMemberDetails && singleMemberDetails.payments && (
-                  <PaymentHistroyTable
-                    paymentDetails={singleMemberDetails.payments}
-                  />
-                )}
+                <HStack justifyContent="space-between">
+                  <Button
+                    variant="solid"
+                    color="#fff"
+                    borderColor="#F1B900"
+                    backgroundColor= "#F1B900"
+                    padding={5}
+                    size={responsiveButtonSize}
+                    _hover={{ backgroundColor: "#FFF", color: "#F1B900" }}
+                    onClick={() =>
+                      navigate(`/app/paymentHistory/:${memberId}`)
+                    }
+                  >
+                    View Payment History
+                  </Button>
+                  <Button
+                    variant="solid"
+                    color="#fff"
+                    borderColor="#F1B900"
+                    backgroundColor= "#F1B900"
+                    padding={5}
+                    size={responsiveButtonSize}
+                    _hover={{ backgroundColor: "#FFF", color: "#F1B900" }}
+                    onClick={() =>
+                      navigate(`/app/addPayment/:${memberId}`,{ state: singleMemberDetails?.member })
+                    }
+                  >
+                    Add New Payment
+                  </Button>
+                </HStack>
               </CardBody>
             </Card>
           </CardBody>
