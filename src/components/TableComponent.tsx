@@ -47,7 +47,7 @@ const TableComponent = ({ thArray,personArray,arrayType,onPressViewButton}: Tabl
           {personArray.map((person) => (
             <Tr key={person.memberId}>
               <Td>{person.memberId}</Td>
-              <Td>{person.firstName+person.lastName}</Td>
+              <Td>{person.firstName+" "+person.lastName}</Td>
               <Td>{person.contactNumber}</Td>
               {arrayType=="Member"?<Td>{person.dateRegistered}</Td>:null}
               <Td>{person.gender}</Td>
