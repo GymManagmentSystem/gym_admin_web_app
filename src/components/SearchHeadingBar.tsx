@@ -40,15 +40,16 @@ const SearchHeadingBar = ({
       </Heading>
       <InputGroup>
         <InputLeftElement pointerEvents="none">
-          <CiSearch color="#E6E6E5" />
+          <CiSearch color="#a7a5a5" strokeWidth={1}/>
         </InputLeftElement>
         <Input
           placeholder="Search here ..."
           borderColor="#E6E6E5"
-          _placeholder={{ textColor: "#E6E6E5", fontWeight: "600" }}
+          _placeholder={{ textColor: "#a7a5a5", fontWeight: "400" }}
           focusBorderColor="#F1B900"
           size={inputSize}
           onChange={(e)=>onSearch(e.target.value)}
+          color="black"
         />
       </InputGroup>
       <Button
