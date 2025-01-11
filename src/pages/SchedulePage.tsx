@@ -15,18 +15,22 @@ const SchedulePage = () => {
   return (
     <>
       <InputGroup>
-        <InputLeftElement pointerEvents="none">
-          <CiSearch color="#E6E6E5" />
+        <InputLeftElement pointerEvents="none" 
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        height="100%">
+          <CiSearch color="#a7a5a5" strokeWidth={2} />
         </InputLeftElement>
         <Input
           placeholder="Enter Member Id"
           borderColor="#BABABA"
-          _placeholder={{ textColor: "#E6E6E5", fontWeight: "600" }}
+          _placeholder={{ textColor: "#a7a5a5", fontWeight: "400"  }}
           focusBorderColor="#F1B900"
           size={{xl:"lg"}}
           value={memberId}
           onChange={(e)=>setMemberId(e.target.value)}
-          
+          color="black"
         />
       </InputGroup>
       <HStack mt={10}>

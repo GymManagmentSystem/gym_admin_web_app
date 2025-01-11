@@ -23,8 +23,9 @@ const SearchHeadingBar = ({
   onSearch
 }: SearchHeadingBarProps) => {
   const headingFontSize = { sm: "small", md: "medium", lg: "large" };
-  const buttonTextSize = { sm: "x-small", xl: "small" };
+  const buttonTextSize = { sm:"xx-small" , xl: "small" };
   const inputSize = { sm: "xs", md: "md" };
+  const buttonSize={sm:"xs",md:"md"}
 
   return (
     <HStack
@@ -39,7 +40,11 @@ const SearchHeadingBar = ({
         {heading}
       </Heading>
       <InputGroup>
-        <InputLeftElement pointerEvents="none">
+        <InputLeftElement pointerEvents="none"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        height="100%">
           <CiSearch color="#a7a5a5" strokeWidth={1}/>
         </InputLeftElement>
         <Input
@@ -50,6 +55,7 @@ const SearchHeadingBar = ({
           size={inputSize}
           onChange={(e)=>onSearch(e.target.value)}
           color="black"
+          ml={2}
         />
       </InputGroup>
       <Button
@@ -58,6 +64,9 @@ const SearchHeadingBar = ({
         variant="outline"
         onClick={buttonPressed}
         _hover={{ backgroundColor: "#F1B900", textColor: "#fff" }}
+        size={buttonSize}
+        fontSize={buttonSize}
+        padding={2}
       >
         <Text fontSize={buttonTextSize}>{buttonText}</Text>
       </Button>

@@ -4,6 +4,7 @@ import LoginHeader from "../components/LoginHeader";
 import LoginCard from "../components/LoginCard";
 import useLogin from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
+import useAdminNameStore from "../store/useAdminNameStore";
 
 interface UserCredentials {
   userName: string;
@@ -11,6 +12,9 @@ interface UserCredentials {
 }
 
 const Login = () => {
+
+  const {setName}=useAdminNameStore();
+
   const toast = useToast();
   const loginRequest = useLogin();
   const navigate = useNavigate();
@@ -28,6 +32,7 @@ const Login = () => {
             position: "top-right",
             colorScheme: "yellow",
           });
+          setName(userCredentials.userName)
           navigate("/app/dashbord");
         }
       },
