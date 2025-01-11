@@ -18,6 +18,7 @@ const SideBarLink = ({ title, imageSrc,path}: SideBarLinkProps) => {
     <HStack
     justifyContent="space-evenly"
     width="100%"
+    mt={3}
     height={hStackHeight}
       _hover={{ backgroundColor: "#F1B900", fontcolor: "#ffffff" }}
       onMouseEnter={() => setIsHovered(true)}

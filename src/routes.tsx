@@ -18,6 +18,8 @@ import AddNewSchedule from "./pages/AddNewSchedule";
 import AddWorkOut from "./pages/AddWorkOut";
 import PackagesPage from "./pages/PackagesPage";
 import AddPackagePage from "./pages/AddPackagePage";
+import PaymentHistoryPage from "./pages/PaymentHistoryPage";
+import PaymentsPage from "./pages/PaymentsPage";
 
 const routes = createBrowserRouter([
   {
@@ -31,12 +33,15 @@ const routes = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "dashbord", element: <HomeDashbord /> },
+      
       { path: "members", element: <MembersPage /> },
       { path: "members/:id", element: <MemberDetailsPage /> },
       { path: "members/addMember", element: <AddMemberPage /> },
+
       { path: "staff", element: <StaffMembersPage /> },
       { path: "staff/:id", element: <StaffMemberDetails /> },
       { path: "staff/addStaffMember", element: <AddStaffMemberPage /> },
+
       { path: "schedule", element: <SchedulePage /> },
       { path: "schedule/addSchedule/:id", element: <AddNewSchedule /> },
       { path: "schedule/addSchedule/addWorkout", element: <AddWorkOut /> },
@@ -45,7 +50,11 @@ const routes = createBrowserRouter([
         path: "schedule/historySchedule/:id",
         element: <HistorySchedulePage />,
       },
-      { path: "addPayment/:id", element: <AddPaymentPage /> },
+
+      { path: "addPayment/:id", element: <AddPaymentPage/> },
+      { path: "paymentHistory/:id", element: <PaymentHistoryPage/> },
+      {path:"payments",element:<PaymentsPage/>},
+
       { path: "exercises", element: <ExercisePage /> },
       { path: "exercises/addExercise", element: <AddExercisePage /> },
 

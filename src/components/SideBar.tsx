@@ -7,12 +7,11 @@ import exerciseLogo from "../assets/exercise.png";
 import staffLogo from "../assets/staff.png";
 import announcementLogo from "../assets/announcement.png";
 import pricingLogo from "../assets/pricing.png";
-import chatLogo from "../assets/chat.png";
-import logOutLogo from "../assets/logout.png";
+
 
 const SideBar = () => {
   return (
-    <VStack width="100%" padding={2} style={{ backgroundColor: "#fff" }}>
+    <VStack width="100%" padding={2}  style={{ backgroundColor: "#fff" }}>
       <SideBarLink
         imageSrc={dashBordLogo}
         title="Dashbord"
@@ -32,12 +31,10 @@ const SideBar = () => {
       <SideBarLink imageSrc={staffLogo} title="Staff" path="/app/staff" />
       <SideBarLink
         imageSrc={announcementLogo}
-        title="Annoncement"
-        path="/app"
+        title="Payments"
+        path="/app/payments"
       />
       <SideBarLink imageSrc={pricingLogo} title="Packages" path="/app/packages" />
-      <SideBarLink imageSrc={chatLogo} title="Chats" path="/app" />
-      <SideBarLink imageSrc={logOutLogo} title="Log Out" path="/app" />
     </VStack>
   );
 };
