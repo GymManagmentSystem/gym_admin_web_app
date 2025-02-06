@@ -25,7 +25,7 @@ const MembersPage = () => {
 
   const filterdSearchMembers = searchTerm
     ? memberDetails?.filter((member) =>
-        member.memberId.toString().includes(searchTerm)
+        member.firstName.toString().includes(searchTerm)
       )
     : memberDetails;
 
