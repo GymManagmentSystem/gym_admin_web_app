@@ -40,6 +40,7 @@ const useLogin=()=>{
         {
           userName: userCredentials.userName,
           password: userCredentials.password,
+          userType:"STAFF"
         }
       );
       localStorage.setItem("authToken",reponse.data.token)
