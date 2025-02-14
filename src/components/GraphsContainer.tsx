@@ -8,8 +8,26 @@ interface GraphsContainerProps {
 }
 
 const GraphsContainer = ({ dataList1, dataList2 }: GraphsContainerProps) => {
-  console.log(`New Members : ${JSON.stringify(dataList1)}`);
-  console.log(`Monthly revenue ${JSON.stringify(dataList2)}`)
+  
+  const sortedPackageCount=(dataList:PackageCount[]|Income[]):any=>{
+
+    const monthOrder: Record<string, number> = {
+      "January": 1, "February": 2, "March": 3, "April": 4,
+      "May": 5, "June": 6, "July": 7, "August": 8,
+      "September": 9, "October": 10, "November": 11, "December": 12
+    };
+
+     return dataList.sort((a, b) => {
+      // First, sort by year
+      if (b.year !== a.year) {
+          return b.year - a.year;
+      }
+      // If years are the same, sort by month
+      return (monthOrder[b.month] ?? 13) - (monthOrder[a.month] ?? 13);
+  });
+}
+
+
   return (
     <>
       {/* <HStack width="100%" height="100%" alignItems="flex-start" justifyContent="space-around" gap={4} p={3}>
@@ -33,7 +51,7 @@ const GraphsContainer = ({ dataList1, dataList2 }: GraphsContainerProps) => {
             )?.memberCount || 0
           }
           month={new Date().toLocaleString('default', { month: 'long' })}
-          dataList={dataList1}
+          dataList={sortedPackageCount(dataList1)}
         />
         <MembersLineChart
           title="Revenue"
@@ -45,7 +63,7 @@ const GraphsContainer = ({ dataList1, dataList2 }: GraphsContainerProps) => {
             )?.amount || 0
           }
           month={new Date().toLocaleString('default', { month: 'long' })}
-          dataList={dataList2}
+          dataList={sortedPackageCount(dataList2)}
         />
       </SimpleGrid>
     </>
