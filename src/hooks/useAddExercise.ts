@@ -36,8 +36,7 @@ const useAddExercise=()=>{
                 throw new Error(error);      
             }
             console.log(e)
-            throw new Error("un expected error occured")
-            
+            throw new Error("un expected error occured")    
         }
 
         }
