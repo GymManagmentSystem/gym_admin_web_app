@@ -8,6 +8,8 @@ interface GraphsContainerProps {
 }
 
 const GraphsContainer = ({ dataList1, dataList2 }: GraphsContainerProps) => {
+  console.log(`New Members : ${JSON.stringify(dataList1)}`);
+  console.log(`Monthly revenue ${JSON.stringify(dataList2)}`)
   return (
     <>
       {/* <HStack width="100%" height="100%" alignItems="flex-start" justifyContent="space-around" gap={4} p={3}>
@@ -23,14 +25,26 @@ const GraphsContainer = ({ dataList1, dataList2 }: GraphsContainerProps) => {
       >
         <MembersLineChart
           title="New Members"
-          value={dataList1[0].memberCount}
-          month={dataList1[0].month}
+          value={
+            dataList1.find(
+              (entry) =>
+                entry.month === new Date().toLocaleString('default', { month: 'long' }) &&
+                entry.year === new Date().getFullYear()
+            )?.memberCount || 0
+          }
+          month={new Date().toLocaleString('default', { month: 'long' })}
           dataList={dataList1}
         />
         <MembersLineChart
           title="Revenue"
-          value={dataList2[0].amount}
-          month={dataList2[0].month}
+          value={
+            dataList2.find(
+              (entry) =>
+                entry.month === new Date().toLocaleString('default', { month: 'long' }) &&
+                entry.year === new Date().getFullYear()
+            )?.amount || 0
+          }
+          month={new Date().toLocaleString('default', { month: 'long' })}
           dataList={dataList2}
         />
       </SimpleGrid>
