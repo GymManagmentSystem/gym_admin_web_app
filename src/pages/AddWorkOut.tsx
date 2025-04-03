@@ -19,6 +19,7 @@ import { useState } from "react";
 import ExerciseSetCard from "../components/ExerciseSetCard";
 import useGetExerciseNameList from "../hooks/useGetExerciseNameList";
 import useAddSchedule from "../hooks/useAddSchedule";
+import { useQueryClient } from "@tanstack/react-query";
 
 const workoutSchema = z.object({
   exerciseName: z.string().min(1, { message: "Should select an exercise" }),
@@ -75,6 +76,7 @@ const AddWorkOut = () => {
     },
   });
 
+  const queryClient = useQueryClient();
   const toast=useToast();
   const navigate=useNavigate()
 
@@ -84,6 +86,8 @@ const AddWorkOut = () => {
     isLoading,
   } = useGetExerciseNameList();
   console.log(exerciseDetailsList);
+
+
 
   const addSchedule = useAddSchedule();
 
