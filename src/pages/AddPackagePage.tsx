@@ -92,7 +92,7 @@ const AddPackagePage = () => {
         }}
       >
         <Heading color="#000" size={{ sm: "md", md: "lg", xl: "xl" }}>
-          New Exercise Details
+          New Package Details
         </Heading>
         <Card backgroundColor="#fff" variant="elevated" padding={2}>
           <form onSubmit={handleSubmit(onSubmitPackageFormData)}>
