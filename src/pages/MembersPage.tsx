@@ -1,10 +1,11 @@
-import { Box, useToast } from "@chakra-ui/react";
+import { Box, Heading, Text, useToast } from "@chakra-ui/react";
 import SearchHeadingBar from "../components/SearchHeadingBar";
 import TableComponent from "../components/TableComponent";
 import { useNavigate } from "react-router-dom";
 import useMemeberTableDetails from "../hooks/useMemberTableDetails";
 import { useState } from "react";
 import useGetPackageDetails from "../hooks/useGetPackageDetails";
+
 
 const MembersPage = () => {
   const navigate = useNavigate();
@@ -69,7 +70,8 @@ const MembersPage = () => {
           buttonText="Add Member"
           onSearch={(term) => setSearchTerm(term)}
         />
-        <TableComponent
+        {filterdSearchMembers && filterdSearchMembers.length>0?(
+          <TableComponent
           thArray={[
             "MemberId",
             "Name",
@@ -82,6 +84,15 @@ const MembersPage = () => {
           personArray={filterdSearchMembers ? filterdSearchMembers : []}
           arrayType="Member"
         />
+        ):(
+          <Box textAlign="center" mt={10} color="gray.600">
+          <Heading size="lg">Build Your Team!</Heading>
+          <Text fontSize="xl" mt={3}>
+            No members yet? Start growing your community today! Tap Add Member to recruit your first member.
+          </Text>
+        </Box>
+        )}
+        
       </Box>
     </>
   );

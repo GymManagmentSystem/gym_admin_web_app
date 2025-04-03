@@ -44,7 +44,7 @@ const PackagesPage = () => {
           />
         ) : (
           <Box textAlign="center" mt={10} color="gray.600">
-            <Heading size="lg">🚀 Ready to Begin?</Heading>
+            <Heading size="lg">Ready to Begin?</Heading>
             <Text fontSize="xl" mt={3}>
               Your package list is currently empty. Tap Add Package to create your first one!</Text>
           </Box>
