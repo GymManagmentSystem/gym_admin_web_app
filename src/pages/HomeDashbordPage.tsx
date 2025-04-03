@@ -3,8 +3,12 @@ import TopHomeCardContainer from "../components/TopHomeCardContainer";
 import useDashBordData from "../hooks/useGetDashBordData";
 
 
+
 const HomeDashbord = () => {
-  const { data: dashBordData, error, isLoading } = useDashBordData();
+  
+  const { data: dashBordData, error:dashBordDataError, isLoading:dashBordIsLoading } = useDashBordData();
+   
+
 
   return (
     <>

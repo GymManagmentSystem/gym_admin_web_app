@@ -1,14 +1,35 @@
-import { Box } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 import SearchHeadingBar from "../components/SearchHeadingBar";
 import TableComponent from "../components/TableComponent";
 import { useNavigate } from "react-router-dom";
 import useMemeberTableDetails from "../hooks/useMemberTableDetails";
 import { useState } from "react";
+import useGetPackageDetails from "../hooks/useGetPackageDetails";
 
 const MembersPage = () => {
   const navigate = useNavigate();
+  const {data:packageList}=useGetPackageDetails();
+  const toast = useToast();
+
+
+
+
+
   const buttonPress = () => {
-    navigate("/app/members/addMember");
+    if(packageList && packageList.length>0){
+      navigate("/app/members/addMember");
+    }else{
+      toast({
+        title: "Cannot Add A Member",
+        description: "Packages are empty.Please Add Membership Package And Continue !",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+        position: "top-right",
+        colorScheme: "red",
+      });
+    }
+    
   };
 
   const viewButtonPressed = (id: number) => {

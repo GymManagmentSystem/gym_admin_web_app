@@ -26,8 +26,11 @@ const MembersLineChart = ({title,month,value,dataList}:MembersLineChartProps) =>
   const cardHeight={ sm:"95%",md: "95%", lg: "60%" }
   const cardWidth={ sm:"100%",md: "100%", lg: "95%" }
 
-  const yAxisDataKey="amount" in dataList[0]?"amount":"memberCount";
+  console.log("value is ",value)
   
+
+  const yAxisDataKey="amount" in dataList[0]?"amount":"memberCount";
+
   return (
     <Card
       backgroundColor="#fff"

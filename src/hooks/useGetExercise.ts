@@ -16,6 +16,7 @@ const useGetExercises=()=>{
     const getExerciseList=async()=>{
         try{
         const {data}=await axios.get<SuccessResponse>("http://localhost:8080/api/v1/exercises/")
+        console.log(data)
         return data.dataList;
         }catch(e){
             if(e instanceof AxiosError){
