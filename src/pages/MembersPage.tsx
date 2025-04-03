@@ -21,7 +21,7 @@ const MembersPage = () => {
     }else{
       toast({
         title: "Cannot Add A Member",
-        description: "Packages are empty.Please Add Membership Package And Continue !",
+        description: "Please Add Membership Package And Continue !",
         status: "error",
         duration: 3000,
         isClosable: true,
