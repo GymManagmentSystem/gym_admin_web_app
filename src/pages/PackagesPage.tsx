@@ -1,17 +1,43 @@
-import { Box, Heading, HStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, useToast } from "@chakra-ui/react";
 import PackageTable from "../components/PackageTable";
 import useGetPackageDetails from "../hooks/useGetPackageDetails";
-Box;
+import SearchHeadingBar from "../components/SearchHeadingBar";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const PackagesPage = () => {
   const { data: packageList, error, isLoading } = useGetPackageDetails();
+    const [searchTerm, setSearchTerm] = useState<string>(""); 
+    const navigate = useNavigate();
+    const toast=useToast()
+
+    const buttonPress = () => {
+      if(packageList && packageList.length>0){
+        navigate("/app/members/addMember");
+      }else{
+        toast({
+          title: "Cannot Add A Member",
+          description: "Please Add Membership Package And Continue !",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+          position: "top-right",
+          colorScheme: "red",
+        });
+      }
+      
+    };
+
+
   return (
     <>
-      <HStack>
-        <Heading color="#000" size={{ sm: "md", md: "lg", xl: "xl" }}>
-          Package Details
-        </Heading>
-      </HStack>
+      <SearchHeadingBar
+        buttonPressed={buttonPress}
+        heading="Packages"
+        buttonText="Add Package"
+        onSearch={(term) => setSearchTerm(term)}
+      />
       <Box
         mt={10}
         sx={{
