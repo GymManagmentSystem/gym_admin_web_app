@@ -13,21 +13,14 @@ const PackagesPage = () => {
     const toast=useToast()
 
     const buttonPress = () => {
-      if(packageList && packageList.length>0){
-        navigate("/app/members/addMember");
-      }else{
-        toast({
-          title: "Cannot Add A Member",
-          description: "Please Add Membership Package And Continue !",
-          status: "error",
-          duration: 3000,
-          isClosable: true,
-          position: "top-right",
-          colorScheme: "red",
-        });
-      }
-      
+      navigate("/app/packages/addPackage");
     };
+
+    const filteredPackageList = searchTerm
+    ? packageList?.filter((pkg) =>
+        pkg.packageName.toString().includes(searchTerm)
+      )
+    : packageList;
 
 
   return (
@@ -47,7 +40,7 @@ const PackagesPage = () => {
           },
         }}
       >
-        {packageList && <PackageTable packageList={packageList} />}
+        {packageList && <PackageTable packageList={filteredPackageList?filteredPackageList:[]} />}
       </Box>
     </>
   );
