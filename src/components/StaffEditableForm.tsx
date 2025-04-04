@@ -48,7 +48,7 @@ export const staffDataSchema = z.object({
     })
     .date(),
   qualifications: z.string().min(1, { message: "Qualifictions are required" }),
-  password:z.string()
+  password:z.string({ required_error: "Password is required" })
   .min(8, "Password must be at least 8 characters long")
   .max(20, "Password must not exceed 20 characters")
   .regex(/[a-z]/, "Password must contain at least one lowercase letter")
@@ -56,7 +56,9 @@ export const staffDataSchema = z.object({
   .regex(/\d/, "Password must contain at least one number")
   .regex(/[@$!%*?&#]/, "Password must contain at least one special character")
   .optional(),
-gender:z.string({required_error: "gender is required"})
+gender:z
+.string()
+.min(1, { message: "Gender is required" })
 });
 
 export type StaffFormData = z.infer<typeof staffDataSchema>;

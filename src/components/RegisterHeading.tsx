@@ -1,7 +1,6 @@
 import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import logo from "../assets/MotionZone.png";
-import profileLogo from "../assets/profile.png";
-import useAdminNameStore from "../store/useAdminNameStore";
+
 
 const RegisterHeading = () => {
   return (

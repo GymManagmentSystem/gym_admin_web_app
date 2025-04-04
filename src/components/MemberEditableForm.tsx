@@ -47,7 +47,9 @@ export const memberDataSchema = z.object({
     .nonnegative({ message: "height should not be negative" })
     .gt(0, { message: "height should be greater than 0" }),
 
-  gender: z.string({ required_error: "Gender is required" }),
+  gender: z
+  .string()
+  .min(1, { message: "Gender is required" }),
   dateRegistered: z
     .string({ required_error: "Date Registered is required" })
     .date()
