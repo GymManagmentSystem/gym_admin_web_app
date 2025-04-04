@@ -8,10 +8,9 @@ import staffLogo from "../assets/staff.png";
 import announcementLogo from "../assets/announcement.png";
 import pricingLogo from "../assets/pricing.png";
 
-
 const SideBar = () => {
   return (
-    <VStack width="100%" padding={2}  style={{ backgroundColor: "#fff" }}>
+    <VStack width="100%" padding={2} style={{ backgroundColor: "#fff" }}>
       <SideBarLink
         imageSrc={dashBordLogo}
         title="Dashbord"
@@ -30,11 +29,16 @@ const SideBar = () => {
       />
       <SideBarLink imageSrc={staffLogo} title="Staff" path="/app/staff" />
       <SideBarLink
+        imageSrc={pricingLogo}
+        title="Packages"
+        path="/app/packages"
+      />
+
+      <SideBarLink
         imageSrc={announcementLogo}
         title="Payments"
         path="/app/payments"
       />
-      <SideBarLink imageSrc={pricingLogo} title="Packages" path="/app/packages" />
     </VStack>
   );
 };
