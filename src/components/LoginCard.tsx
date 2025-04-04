@@ -117,7 +117,7 @@ const LoginCard = ({ onSubmit }: LoginCardProps) => {
                 variant="link"
                 {...forgotText}
                 alignSelf="flex-end"
-                onClick={() => navigate("/register")} // or any function to handle register action
+                onClick={() => navigate("/staff/register")} // or any function to handle register action
               >
                 Register
               </Button>
