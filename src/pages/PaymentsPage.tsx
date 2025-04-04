@@ -1,4 +1,4 @@
-import { Box, Heading, HStack } from "@chakra-ui/react";
+import { Box, Heading, HStack, Text } from "@chakra-ui/react";
 import useGetPaymentsDetails from "../hooks/useGetPaymentsDetails";
 import PaymentTable from "../components/PaymentTable";
 import { useNavigate } from "react-router-dom";
@@ -31,12 +31,20 @@ const PaymentsPage = () => {
           </Heading>
         </HStack>
         <Box mt={10}>
-          {paymentList && (
+          {paymentList && paymentList.length > 0 ? (
             <PaymentTable
               tableType="current"
               paymentDetails={paymentList}
               onPressViewButton={onViewButtonPressed}
             />
+          ) : (
+            <Box textAlign="center" mt={10} color="gray.600">
+              <Heading size="lg">No Payments Recorded Yet!</Heading>
+              <Text fontSize="xl" mt={3}>
+                Track your gym’s revenue effortlessly! Once members make
+                payments, they will appear here.
+              </Text>
+            </Box>
           )}
         </Box>
       </Box>
