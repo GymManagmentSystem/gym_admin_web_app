@@ -15,6 +15,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
+
 const schema = z.object({
   userName: z
     .string()
@@ -47,6 +48,8 @@ interface LoginCardProps {
 }
 
 const LoginCard = ({ onSubmit }: LoginCardProps) => {
+  const navigate=useNavigate();
+  
   const {
     register,
     handleSubmit,
@@ -110,7 +113,14 @@ const LoginCard = ({ onSubmit }: LoginCardProps) => {
                   {errors.password.message}
                 </Text>
               )}
-              <Text {...forgotText}>Forgot Password?</Text>
+              <Button
+                variant="link"
+                {...forgotText}
+                alignSelf="flex-end"
+                onClick={() => navigate("/register")} // or any function to handle register action
+              >
+                Register
+              </Button>
 
               <CardFooter>
                 <Button {...loginButton} type="submit">
