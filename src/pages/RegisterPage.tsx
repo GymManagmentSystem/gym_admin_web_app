@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   FormControl,
@@ -80,31 +81,38 @@ const RegisterPage = () => {
 
   return (
     <>
-      <RegisterHeading />
-      <Card
-        backgroundColor="#fff"
-        variant="elevated"
-        padding={5}
-        height="100%"
-        overflow="auto"
-        sx={{
-          "::-webkit-scrollbar": {
-            display: "none",
-          },
-        }}
-      >
-        <Heading color="#000" size={{ sm: "md", md: "lg", xl: "xl" }}>
-          Register Staff Member Details
-        </Heading>
-        <Card backgroundColor="#fff" variant="elevated" padding={2}>
-          <form onSubmit={handleSubmit(onSubmitStaffMember)}>
-            <SimpleGrid
-              width="100%"
-              mt={5}
-              gap={2}
-              columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
-            >
-              <TextInput
+      <Box height="100vh" display="flex" flexDirection="column">
+  {/* Fixed Header */}
+  <Box flexShrink={0}>
+    <RegisterHeading />
+  </Box>
+
+  {/* Scrollable content with hidden scrollbar */}
+  <Box
+    flex="1"
+    overflowY="auto"
+    sx={{
+      "::-webkit-scrollbar": {
+        display: "none",
+      },
+      scrollbarWidth: "none", // Firefox
+      msOverflowStyle: "none", // IE
+    }}
+  >
+    <Card backgroundColor="#fff" variant="elevated" padding={5}>
+      <Heading color="#000" size={{ sm: "md", md: "lg", xl: "xl" }}>
+        Register Staff Member Details
+      </Heading>
+
+      <Card backgroundColor="#fff" variant="elevated" padding={2} mt={5}>
+        <form onSubmit={handleSubmit(onSubmitStaffMember)}>
+          <SimpleGrid
+            width="100%"
+            mt={5}
+            gap={2}
+            columns={{ sm: 1, md: 2, lg: 2, xl: 2 }}
+          >
+            <TextInput
                 textInputTitle="First Name"
                 name="firstName"
                 register={register}
@@ -175,7 +183,7 @@ const RegisterPage = () => {
               />
 
               <SelectFeild
-                selectArray={["Male","Female"]}
+                selectArray={["Male", "Female"]}
                 textInputTitle="Gender"
                 name="gender"
                 register={register}
@@ -200,35 +208,37 @@ const RegisterPage = () => {
                 errors={errors.qualifications}
                 formType="addForm"
               />
-            </SimpleGrid>
+          </SimpleGrid>
 
-            <HStack justifyContent="space-between" mt={5}>
-              <Button
-                variant="outline"
-                color="#F1B900"
-                borderColor="#F1B900"
-                padding={5}
-                size={responsiveButtonSize}
-                _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
-                onClick={() => navigation("/")}
-              >
-                Back
-              </Button>
-              <Button
-                variant="outline"
-                color="#F1B900"
-                borderColor="#F1B900"
-                padding={5}
-                size={responsiveButtonSize}
-                _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
-                type="submit"
-              >
-                Next
-              </Button>
-            </HStack>
-          </form>
-        </Card>
+          <HStack justifyContent="space-between" mt={5}>
+            <Button
+              variant="outline"
+              color="#F1B900"
+              borderColor="#F1B900"
+              padding={5}
+              size={responsiveButtonSize}
+              _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
+              onClick={() => navigation("/")}
+            >
+              Back
+            </Button>
+            <Button
+              variant="outline"
+              color="#F1B900"
+              borderColor="#F1B900"
+              padding={5}
+              size={responsiveButtonSize}
+              _hover={{ backgroundColor: "#F1B900", color: "#fff" }}
+              type="submit"
+            >
+              Next
+            </Button>
+          </HStack>
+        </form>
       </Card>
+    </Card>
+  </Box>
+</Box>
     </>
   );
 };

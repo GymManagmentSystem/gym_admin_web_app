@@ -5,10 +5,11 @@ import { ExerciseFormData } from "../pages/AddExercisePage";
 import { StaffAddFormData } from "../pages/AddStaffMemberPage";
 import { ScheduleFormData } from "../pages/AddNewSchedule";
 import { WorkOutFormData } from "../pages/AddWorkOut";
+import { MemberFormData } from "./MemberEditableForm";
 
 
 
-interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFormData |ScheduleFormData |WorkOutFormData > {
+interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFormData |ScheduleFormData |WorkOutFormData| MemberFormData > {
   selectArray:string[]
   textInputTitle: string;
   name: Path<T>;
@@ -18,7 +19,7 @@ interface SelectProps<T extends PaymentFormData | ExerciseFormData | StaffAddFor
   isDisable?:boolean
 }
 
-const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormData |ScheduleFormData |WorkOutFormData>({
+const SelectFeild = <T extends PaymentFormData | ExerciseFormData |StaffAddFormData |ScheduleFormData |WorkOutFormData| MemberFormData>({
   textInputTitle,
   name,
   register,

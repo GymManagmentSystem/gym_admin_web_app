@@ -170,14 +170,14 @@ const AddStaffMemberPage = () => {
               formType="addForm"
             />
 
-            <TextInput
-              textInputTitle="Gender"
-              name="gender"
-              register={register}
-              errors={errors.gender}
-              inputType="string"
-              formType="addForm"
-            />
+             <SelectFeild
+                selectArray={["Male","Female"]}
+                textInputTitle="Gender"
+                name="gender"
+                register={register}
+                errors={errors.gender}
+                formType="addForm"
+              />
 
             <TextInput
               textInputTitle="Password"

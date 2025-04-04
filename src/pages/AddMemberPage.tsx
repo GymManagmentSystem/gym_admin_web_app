@@ -5,6 +5,7 @@ import TextInput from "../components/TextInput";
 import { useNavigate } from "react-router-dom";
 import { memberDataSchema } from "../components/MemberEditableForm";
 import { MemberFormData } from "../components/MemberEditableForm";
+import SelectFeild from "../components/Select";
 
 const AddMemberPage = () => {
   const responsiveButtonSize = { sm: "sm", md: "sm", lg: "md", xl: "lg" };
@@ -116,14 +117,16 @@ const AddMemberPage = () => {
                 inputType="number"
                 formType="addForm"
               />
-              <TextInput
+
+              <SelectFeild
+                selectArray={["Male","Female"]}
                 textInputTitle="Gender"
                 name="gender"
                 register={register}
                 errors={errors.gender}
-                inputType="string"
                 formType="addForm"
               />
+              
               <TextInput
                 textInputTitle="Date Registered"
                 name="dateRegistered"

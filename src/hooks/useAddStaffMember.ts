@@ -28,7 +28,7 @@ const useAddStaffMember=()=>{
     return useMutation<StaffMemberDetails,Error,StaffMemberDetails>({
         mutationFn:async(memberData:StaffMemberDetails)=>{
             try{
-              const {data}=await axios.post<SuccessResponse>("http://localhost:8080/api/v1/staff/members/",memberData)
+              const {data}=await axios.post<SuccessResponse>("http://localhost:8080/api/v1/staff/members/new",memberData)
               return data.data
         }catch(e){
             if(e instanceof AxiosError){
