@@ -20,12 +20,17 @@ import PackagesPage from "./pages/PackagesPage";
 import AddPackagePage from "./pages/AddPackagePage";
 import PaymentHistoryPage from "./pages/PaymentHistoryPage";
 import PaymentsPage from "./pages/PaymentsPage";
+import RegisterPage from "./pages/RegisterPage";
 
 const routes = createBrowserRouter([
   {
     path: "/",
     element: <Login />, // LoginPage as the default entry point
     index: true,
+  },
+  {
+    path:"/staff/register",
+    element:<RegisterPage/>
   },
 
   {
