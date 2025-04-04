@@ -11,7 +11,7 @@ interface ErrorResponse{
 }
 
 
-const useGetMemberExistById = (memberId:number) => {
+const useGetMemberExistById = (memberId:string) => {
 
     const memberExitsById=async()=>{
         try{
@@ -33,11 +33,10 @@ const useGetMemberExistById = (memberId:number) => {
 
     return useQuery<boolean,Error>({
         queryKey:["isMemberExist",memberId],
-        queryFn:memberExitsById
+        queryFn:memberExitsById,
+        enabled:false,
+        refetchOnWindowFocus:false 
     })
-
-    
-
 
 }
 
